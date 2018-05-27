@@ -84,8 +84,8 @@ class TelegramController extends Controller
 
     public function main_menu($user, $msg = "Вы в главном меню"){
         $keyboard = [
-            ['@ Изучить новые слова @'],
-            ['@ Повторить изученные @']
+            ['Изучить новые слова'],
+            ['Повторить изученные']
         ];
 
         $reply_markup = Telegram::replyKeyboardMarkup([
@@ -140,8 +140,12 @@ class TelegramController extends Controller
         }
         else{
             switch ($text) {
-                case '@ Изучить новые слова @':
+                case 'Изучить новые слова':
                     $this->init_learn($user);
+                    break;
+
+                case 'Повторить изученные':
+                    $this->init_repeat($user);
                     break;
             }
         }
@@ -275,6 +279,20 @@ class TelegramController extends Controller
         $user->current = Word::whereNotIn('id',$user->words)->inRandomOrder()->first()->id;
         $user->save();
         $this->sentwordagain($user);
+    }
+
+    public function init_repeat($user){
+        $words = $user->words()->inRandomOrder()->take(10)->get();
+        foreach ($words as $word){
+            $word->passed = 0;
+            $word->save();
+        }
+
+        $user->status = 'test';
+        $user->failed=0;
+        $user->save();
+        $this->user_test();
+
     }
 
     public function check_word($text,$user){
