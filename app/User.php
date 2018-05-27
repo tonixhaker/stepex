@@ -10,7 +10,7 @@ class User extends Authenticatable
     use Notifiable;
 
     protected $fillable = [
-        'fname','lname','uname','chat_id'
+        'fname','lname','uname','chat_id', 'status', 'current'
     ];
 
     protected $hidden = [

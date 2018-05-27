@@ -20,6 +20,10 @@ class CreateUsersTable extends Migration
             $table->string('lname');
             $table->string('uname');
             $table->string('chat_id');
+            $table->string('status')->default('menu');
+            $table->integer('current')->nullable();
+            $table->integer('count')->default(0);
+            $table->integer('failed')->default(0);
             $table->timestamps();
         });
     }
