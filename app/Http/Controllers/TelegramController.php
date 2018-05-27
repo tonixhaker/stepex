@@ -7,6 +7,7 @@ use App\UserRating;
 use App\UserWords;
 use App\Word;
 use Illuminate\Http\Request;
+use SimpleXMLElement;
 use Telegram\Bot\Laravel\Facades\Telegram;
 use Telegram\Bot\Api;
 
@@ -133,6 +134,8 @@ class TelegramController extends Controller
                 case 'Повторить изученные':
                     $this->init_repeat($user);
                     break;
+
+                default: $this->translate($text,$user);
             }
         }
     }
@@ -325,6 +328,38 @@ class TelegramController extends Controller
         }
         $this->user_test($user);
 
+    }
+
+    function translate($text,$user)
+    {
+        $response = Telegram::sendMessage([
+            'chat_id' => $user->chat_id,
+            'text' => 'Сейчас, только в словарик подсмотрю, сек'
+        ]);
+
+        try {
+            $sURL = "https://translate.yandex.net/api/v1.5/tr/detect?key=" . env("TRANSLATE") . "&text=" . $text;
+            $xml = simplexml_load_file($sURL);
+            $from_lang = $xml['lang'];
+            if ($from_lang == 'en') {
+                $to_lang = 'ru';
+            } else {
+                $to_lang = 'en';
+            }
+
+            $sURL = "https://translate.yandex.net/api/v1.5/tr/translate?key=" . env("TRANSLATE") . "&text=" . $text . "&lang=" . $from_lang . "-" . $to_lang . "&format=plain";
+            $xml = simplexml_load_file($sURL);
+            $res = (string)$xml->text;
+            $response = Telegram::sendMessage([
+                'chat_id' => $user->chat_id,
+                'text' => $res
+            ]);
+        }catch (\Exception $e){
+            $response = Telegram::sendMessage([
+                'chat_id' => $user->chat_id,
+                'text' => "Я запутался, отправь текст покороче или попробуй еще разок. Не злись)"
+            ]);
+        }
     }
 
 }
