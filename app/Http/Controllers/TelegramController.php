@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use App\UserRating;
 use App\UserWords;
 use App\Word;
 use Illuminate\Http\Request;
@@ -54,7 +55,11 @@ class TelegramController extends Controller
             $user->uid = $update['message']['from']['id'];
             $user->status = 'menu';
             $user->save();
-            $this->new_user_response($user);
+
+            $rating = new UserRating();
+            $rating->user_id = $user->id;
+            $rating->save();
+            $this->main_menu($user, 'Привет '.$user->fname."! Я помогу тебе пополнить словарный запас и перевести текст в экстренной ситуации. Пиши мне в любое время, не стесняйся");
         }
         else{
             $this->main_menu($user);
@@ -62,25 +67,6 @@ class TelegramController extends Controller
         return 'ok';
     }
 
-    public function  new_user_response($user){
-
-        $keyboard = [
-            ['@ Изучить новые слова @'],
-            ['@ Повторить изученные @']
-        ];
-
-        $reply_markup = Telegram::replyKeyboardMarkup([
-            'keyboard' => $keyboard,
-            'resize_keyboard' => true,
-            'one_time_keyboard' => true
-        ]);
-
-        $response = Telegram::sendMessage([
-            'chat_id' => $user->chat_id,
-            'text' => 'Привет '.$user->fname."! Я помогу тебе пополнить словарный запас и перевести текст в экстренной ситуации. Пиши мне в любое время, не стесняйся",
-            'reply_markup' => $reply_markup
-        ]);
-    }
 
     public function main_menu($user, $msg = "Вы в главном меню"){
         $keyboard = [
@@ -187,12 +173,12 @@ class TelegramController extends Controller
     }
 
     public function learn_new($user){
-        if($user->count<=1){
-            $user->status = 'test';
-            $user->save();
-            $this->user_test();
-            return 'ok';
-        }
+//        if($user->count<=1){
+//            $user->status = 'test';
+//            $user->save();
+//            $this->user_test();
+//            return 'ok';
+//        }
             $user_word = new UserWords();
             $user_word->user_id = $user->id;
             $user_word->word_id = $user->current;
@@ -257,9 +243,13 @@ class TelegramController extends Controller
 
     public function save_word_to_user($user){
         if($user->count<=1){
+            $rating = $user->rating()->first();
+            $rating->tests_count += 1;
+            $rating->save();
+
             $user->status = 'test';
             $user->save();
-            $this->user_test();
+            $this->user_test($user);
             return 'ok';
         }
             $user_word = new UserWords();
@@ -283,6 +273,13 @@ class TelegramController extends Controller
 
     public function init_repeat($user){
         $words = $user->words()->inRandomOrder()->take(10)->get();
+        if(count($words)==0){
+            $response = Telegram::sendMessage([
+                'chat_id' => $user->chat_id,
+                'text' => "Вы еще не выучили ни одного слова, пока нечего повторять."
+            ]);
+            return 'ok';
+        }
         foreach ($words as $word){
             $word->passed = 0;
             $word->save();
@@ -291,13 +288,18 @@ class TelegramController extends Controller
         $user->status = 'test';
         $user->failed=0;
         $user->save();
-        $this->user_test();
+        $this->user_test($user);
 
     }
 
     public function check_word($text,$user){
         if(Word::where('id','=',$user->current)->first()->ru != $text){
             $user->failed += 1;
+            $user->save();
+            $rating = $user->rating()->first();
+            $rating->true_answers-=1;
+            $rating->false_answers+=1;
+            $rating->save();
             $word = Word::where('id','=',$user->current)->first();
             $examples = $word->examples()->take(4)->get();
             $text = "К сожалению ответ не верный, ничего страшного, просто запомни это слово. \n\n<b>".$word->eng." [".$word->transcription."]</b> - "."<i>".$word->ru."</i>";
@@ -316,6 +318,10 @@ class TelegramController extends Controller
             $userword = UserWords::where('word_id','=',$user->current)->where('user_id','=',$user->id)->first();
             $userword->passed = 1;
             $userword->save();
+
+            $rating = $user->rating()->first();
+            $rating->true_answers+=1;
+            $rating->save();
         }
         $this->user_test($user);
 

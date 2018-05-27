@@ -15,10 +15,10 @@ class CreateUserRatingsTable extends Migration
     {
         Schema::create('user_ratings', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id');
-            $table->integer('tests_count');
-            $table->integer('true_answers');
-            $table->integer('false_answers');
+            $table->integer('user_id')->unique();
+            $table->integer('tests_count')->default(0);
+            $table->integer('true_answers')->default(0);
+            $table->integer('false_answers')->default(0);
             $table->timestamps();
         });
     }
