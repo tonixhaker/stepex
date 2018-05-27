@@ -360,6 +360,7 @@ class TelegramController extends Controller
                 'text' => "Я запутался, отправь текст покороче или попробуй еще разок. Не злись)"
             ]);
         }
+        return 'ok';
     }
 
 }
