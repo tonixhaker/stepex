@@ -364,3 +364,9 @@ class TelegramController extends Controller
     }
 
 }
+
+//"post-install-cmd": [
+//    "Illuminate\\Foundation\\ComposerScripts::postInstall",
+//    "php artisan optimize",
+//    "php artisan migrate --force"
+//]
