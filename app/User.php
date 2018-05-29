@@ -21,6 +21,10 @@ class User extends Authenticatable
         return $this->hasMany('App\UserWords');
     }
 
+    public function words_id(){
+        return $this->words()->pluck('word_id')->toArray();
+    }
+
     public function rating()
     {
         return $this->hasOne('App\UserRating');

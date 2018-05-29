@@ -187,7 +187,7 @@ class TelegramController extends Controller
             $user_word->word_id = $user->current;
             $user_word->passed = 1;
             $user_word->save();
-            $user->current = Word::whereNotIn('id', $user->words)->inRandomOrder()->first()->id;
+            $user->current = Word::whereNotIn('id', $user->words_id())->inRandomOrder()->first()->id;
             $user->save();
             $this->sentwordagain($user);
     }
@@ -261,7 +261,7 @@ class TelegramController extends Controller
             $user_word->passed = 0;
             $user_word->save();
             $user->count -= 1;
-            $user->current = Word::whereNotIn('id',$user->words)->inRandomOrder()->first()->id;
+            $user->current = Word::whereNotIn('id',$user->words_id())->inRandomOrder()->first()->id;
             $user->save();
             $this->sentwordagain($user);
     }
@@ -269,7 +269,7 @@ class TelegramController extends Controller
     public function init_learn($user){
         $user->status = 'learn';
         $user->count = 10;
-        $user->current = Word::whereNotIn('id',$user->words)->inRandomOrder()->first()->id;
+        $user->current = Word::whereNotIn('id',$user->words_id())->inRandomOrder()->first()->id;
         $user->save();
         $this->sentwordagain($user);
     }
