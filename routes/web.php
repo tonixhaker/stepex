@@ -12,5 +12,8 @@
 */
 
 Route::get('/', 'LoginController@index');
+Route::get('/user', 'LoginController@index');
+Route::get('/statistic', 'LoginController@index');
+Route::get('/words', 'LoginController@index');
 Route::get('/logout', 'LoginController@logout');
 Route::get('/login', 'LoginController@login');
