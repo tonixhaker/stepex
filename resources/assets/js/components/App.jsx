@@ -1,18 +1,14 @@
-import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
+ import React, {Component} from 'react';
+ import Logged from "../layouts/logged_layout.jsx";
 
-class App extends Component {
-    render() {
-        return (
-            <div>
-                <h3>APP COMPONENT</h3>
-            </div>
-        );
-    }
-}
 
-export default App;
 
-if (document.getElementById('root')) {
-    ReactDOM.render(<App />, document.getElementById('root'));
-}
+ class App extends Component{
+     render (){
+         return(
+             <Logged />
+         );
+     }
+ }
+
+ export default App;

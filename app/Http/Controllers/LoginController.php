@@ -8,7 +8,8 @@ use Illuminate\Http\Request;
 class LoginController extends Controller
 {
     public function index(){
-        return $this->if_logged();
+        return view('logged');
+        //return $this->if_logged();
     }
 
     function if_logged()

@@ -1,0 +1,22 @@
+.logo{
+  height: 100px;
+  width: 200px;
+  background-repeat: no-repeat;
+  background-size: 160px 97px;
+  background-image: url('../img/pic.png');
+  margin-left: 20px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.hidden{
+  display: none;
+}
+
+.show{
+  display: block;
+}
+
+.logout_button{
+  position: absolute!important;
+  bottom:0;
+}
