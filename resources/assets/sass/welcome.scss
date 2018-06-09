@@ -1,0 +1,115 @@
+.background-video{
+  position: absolute;
+  z-index: -100;
+  top: 0;
+  left: -20%;
+  -webkit-filter: blur(7px);
+  width: 132%;
+}
+
+.overflow-hidden{
+  overflow: hidden;
+}
+
+.welcome-container{
+  height: 100vh;
+  width: 100%;
+}
+
+.centerh{
+  display: flex;
+  justify-content: center;
+}
+
+.centerv{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.login-container{
+  background-color: rgba(80, 79, 79, 0.5);
+  border-radius: 15px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  max-width: 400px;
+  text-align: center;
+}
+
+.width100{
+  width: 100%;
+}
+
+.bus_img{
+  width: 100%;
+  position: absolute;
+  max-width: 400px;
+  top: 10px;
+  left: 10px;
+}
+
+.sitetitle{
+  font-weight: 600;
+  font-size: 44px;
+  margin-bottom: 50px;
+  margin-top: 50px;
+  color: #fff;
+}
+
+.buttonbottom{
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+
+
+/*BLOCKQUOTE*/
+
+blockquote {
+  margin: 0;
+  background-color: rgba(255, 255, 255, 0.5);
+  padding: 40px;
+  color: #3F484D;
+  position: relative;
+  font-family: 'Lato', sans-serif;
+  text-align: center;
+}
+blockquote:before, blockquote:after {
+  font-size: 45px;
+  color: #3CA1D9;
+  position: absolute;
+  height: 2px;
+  left: 40px;
+  right: 40px;
+  line-height: .5;
+  background: linear-gradient(to right, #3CA1D9 45%, transparent 45%, transparent), linear-gradient(to right, transparent, transparent 55%, #3CA1D9 55%);
+  font-family: serif;
+}
+blockquote:before {
+  content: "\201C";
+  top: 30px;
+}
+blockquote:after {
+  content: "\201D";
+  bottom: 30px;
+}
+blockquote p {
+  font-size: 20px;
+}
+blockquote footer {
+  margin-bottom: 1em;
+}
+blockquote cite {
+  font-style: normal;
+}
+
+.noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome and Opera */
+}

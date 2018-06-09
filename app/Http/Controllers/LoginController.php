@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 class LoginController extends Controller
 {
     public function index(){
+        //return view('welcome');
         //return view('logged');
         return $this->if_logged();
     }
