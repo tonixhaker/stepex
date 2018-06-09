@@ -3,7 +3,8 @@ import { STATE_STATUSES } from '../../share/constants';
 import {error, success} from "redux-saga-requests";
 
 const item = {
-    id: "qweqweqweqweqweqweqweqweqweqweqweqweqweqweqwe"
+    id: "",
+    
 };
 
 const initialState = {
