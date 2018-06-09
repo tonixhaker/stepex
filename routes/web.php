@@ -11,9 +11,12 @@
 |
 */
 
-Route::get('/', 'LoginController@index');
+Route::get('/', function(){
+    return redirect('/user');
+});
 Route::get('/user', 'LoginController@index');
 Route::get('/statistic', 'LoginController@index');
 Route::get('/words', 'LoginController@index');
 Route::get('/logout', 'LoginController@logout');
 Route::get('/login', 'LoginController@login');
+Route::get('/get_current_user', 'UserController@getCurrentUser');
