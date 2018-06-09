@@ -29304,3 +29304,25 @@ button.close {
   bottom: 0;
 }
 
+.user_img {
+  border-radius: 50%;
+  width: 300px;
+}
+
+.container {
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  margin-top: 20px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.username {
+  text-align: center;
+  width: 100%;
+}
+

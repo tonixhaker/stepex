@@ -12,8 +12,9 @@ class User extends Component{
 
     render (){
         return(
-            <div>
-                USER {this.props.user.id} <br/> {this.props.user.uid}
+            <div className={'container'}>
+                <img className={'user_img'} src={this.props.user.photo_url} alt=""/>
+                <h1 className={'username'}>{this.props.user.fname} {this.props.user.lname}</h1>
             </div>
         );
     }
