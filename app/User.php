@@ -4,13 +4,14 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Telegram\Bot\Laravel\Facades\Telegram;
 
 class User extends Authenticatable
 {
     use Notifiable;
 
     protected $fillable = [
-        'fname','lname','uname','chat_id', 'status', 'current'
+        'fname','lname','uname','chat_id', 'status', 'current','uid','photo_url'
     ];
 
     protected $hidden = [

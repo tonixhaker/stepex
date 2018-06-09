@@ -2,9 +2,21 @@ import * as types from './types';
 import { STATE_STATUSES } from '../../share/constants';
 import {error, success} from "redux-saga-requests";
 
+
+function getCookie(name){
+    var matches = document.cookie.match(new RegExp(
+        "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+    ));
+    return matches ? decodeURIComponent(matches[1]) : undefined;
+}
+
+function getCookieId(name){
+    return JSON.parse(getCookie(name)).id
+}
+
 const item = {
-    id: "",
-    
+    id:"",
+    uid: getCookieId('tg_user'),
 };
 
 const initialState = {

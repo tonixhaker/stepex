@@ -2,14 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
+use App\UserRating;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
     public function index(){
-        return view('logged');
-        //return $this->if_logged();
+        //return view('logged');
+        return $this->if_logged();
     }
 
     function if_logged()
@@ -17,10 +20,34 @@ class LoginController extends Controller
         if (isset($_COOKIE['tg_user'])) {
             $auth_data_json = urldecode($_COOKIE['tg_user']);
             $auth_data = json_decode($auth_data_json, true);
+            $this->checkUser($auth_data);
             return view('logged');
         }
         return view('welcome');
     }
+
+    public function checkUser($auth_data){
+        $user = User::where('uid',$auth_data['id'])->first();
+        if(!$user){
+            $user = new User();
+            $user->fname = $auth_data['first_name'];
+            $user->lname = $auth_data['last_name'];
+            $user->uname = $auth_data['username'];
+            $user->uid = $auth_data['id'];
+            $user->photo_url = $auth_data['photo_url'];
+            $user->status = 'menu';
+            $user->save();
+            $rating = new UserRating();
+            $rating->user_id = $user->id;
+            $rating->save();
+        }
+        else{
+            $user->photo_url = $auth_data['photo_url'];
+            $user->save();
+        }
+        Auth::loginUsingId($user->id);
+    }
+
     public function login(){
 
         if (isset($_COOKIE['tg_user'])){

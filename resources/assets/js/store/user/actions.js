@@ -1,11 +1,13 @@
 import * as types from './types';
 
-export const getItem = () => ({
+
+export const getItem = (uid) => ({
     type: types.GET,
     payload: {
         request: {
-            method: 'get',
-            url: `http://127.0.0.1:9000/get_current_user`
+            method: 'post',
+            url: `api/get_current_user`,
+            data: {'uid':uid}
         }
     }
 });

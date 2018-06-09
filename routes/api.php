@@ -17,3 +17,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 Route::any(env('TELEGRAM_BOT_TOKEN').'/webhook', "TelegramController@webhook");
+Route::post('/get_current_user', 'UserController@getCurrentUser');

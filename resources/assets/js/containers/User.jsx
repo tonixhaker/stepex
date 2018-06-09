@@ -5,14 +5,15 @@ import {test, getItem} from '../store/user/actions'
 
 class User extends Component{
     componentDidMount(){
-        this.props.getItem();
+        this.props.getItem(this.props.user.uid);
     }
 
+
+
     render (){
-        console.log(this.props.user.id);
         return(
             <div>
-                USER {this.props.user.id}
+                USER {this.props.user.id} <br/> {this.props.user.uid}
             </div>
         );
     }
@@ -28,7 +29,7 @@ function mapStateToProps(state){
 
 const mapDispatchToProps = dispatch => ({
     test: () => dispatch(test()),
-    getItem: () => dispatch(getItem())
+    getItem: (uid) => dispatch(getItem(uid))
 });
 
 export default connect(mapStateToProps,mapDispatchToProps)(User);

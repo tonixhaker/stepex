@@ -19,4 +19,9 @@ Route::get('/statistic', 'LoginController@index');
 Route::get('/words', 'LoginController@index');
 Route::get('/logout', 'LoginController@logout');
 Route::get('/login', 'LoginController@login');
-Route::get('/get_current_user', 'UserController@getCurrentUser');
+
+//Route::group([
+//    'middleware' => ['api', 'cors'],
+//    ], function ($router) {
+//    Route::get('/get_current_user', 'UserController@getCurrentUser');
+//});
