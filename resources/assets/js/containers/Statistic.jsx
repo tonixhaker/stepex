@@ -23,8 +23,20 @@ class Statistic extends Component{
                 <div>
                     <WordsLearned rating={this.props.rating} />
                 </div>
-                <div>
-                    
+                <div className={"fullsize"}>
+                    <dl className="holiday">
+                        <dt>{this.props.rating.totalrating}</dt>
+                        <dd>GLobal rating</dd>
+
+                        <dt>{this.props.rating.tests_count}</dt>
+                        <dd>Tests passed</dd>
+
+                        <dt>{this.props.rating.total_users_count - this.props.rating.users_dumber}</dt>
+                        <dd>Position in rating list</dd>
+
+                        <dt>{this.props.rating.total_users_count}</dt>
+                        <dd>Total users count</dd>
+                    </dl>
                 </div>
                 <div>
                     <UsersCompare rating={this.props.rating} />
