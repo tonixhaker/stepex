@@ -39,6 +39,7 @@ class LearnedWords extends Component{
                 dataSource={this.props.words.data}
                 expandRowByClick={true}
                 bordered={true}
+                pagination={{ position: 'both', total:this.props.words.total, showSizeChanger:'true', showQuickJumper:'true' }}
                 expandedRowRender={record => <Table dataSource={record.examples} size={'small'} pagination={false} columns={subcolumns} />}
                 columns={columns} />
         );
