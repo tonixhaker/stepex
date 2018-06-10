@@ -18,7 +18,7 @@ class CreateUsersTable extends Migration
             $table->integer('uid')->unique();
             $table->string('fname');
             $table->string('lname');
-            $table->string('uname');
+            $table->string('uname')->nullable();
             $table->string('photo_url')->nullable();
             $table->string('chat_id')->unique()->nullable();
             $table->string('status')->default('menu');

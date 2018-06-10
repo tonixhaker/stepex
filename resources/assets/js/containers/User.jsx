@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from "react-redux";
+import Moment from 'react-moment';
 
 import {test, getItem} from '../store/user/actions'
 
@@ -15,6 +16,7 @@ class User extends Component{
             <div className={'container'}>
                 <img className={'user_img'} src={this.props.user.photo_url} alt=""/>
                 <h1 className={'username'}>{this.props.user.fname} {this.props.user.lname}</h1>
+                <i>Using 'Easy English' since <Moment date={this.props.user.created_at} format="YYYY/MM/DD" /></i>
             </div>
         );
     }

@@ -19,6 +19,7 @@ class CreateUserRatingsTable extends Migration
             $table->integer('tests_count')->default(0);
             $table->integer('true_answers')->default(0);
             $table->integer('false_answers')->default(0);
+            $table->float('totalrating')->default(0);
             $table->timestamps();
         });
     }

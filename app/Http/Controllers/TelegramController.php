@@ -47,21 +47,42 @@ class TelegramController extends Controller
             default:$this->wrong_command($update);break;
         }
     }
+    public function check_chat_id($update){
+        $user = User::where('uid','=', $update['message']['from']['id'])->first();
+        if($user && ! $user->chat_id){
+            $user->chat_id = $update['message']['chat']['id'];
+            $user->save();
+        }else{
+            $user = $this->newUser($update);
+        }
+
+        return $user;
+    }
+
+    public function newUser($update){
+        $user = new User();
+        $user->fname = $update['message']['from']['first_name'];
+        $user->lname = $update['message']['from']['last_name'];
+        $user->uname = isset($update['message']['from']['username'])?$update['message']['from']['username']:null;
+        $user->chat_id = $update['message']['chat']['id'];
+        $user->uid = $update['message']['from']['id'];
+        $user->status = 'menu';
+        $user->save();
+        $rating = new UserRating();
+        $rating->user_id = $user->id;
+        $rating->save();
+        return $user;
+    }
+
     public function start_command($update){
         $user = User::where('uid','=',$update['message']['from']['id'])->first();
         if(!$user){
-            $user = new User();
-            $user->fname = $update['message']['from']['first_name'];
-            $user->lname = $update['message']['from']['last_name'];
-            $user->uname = $update['message']['from']['username'];
-            $user->chat_id = $update['message']['chat']['id'];
-            $user->uid = $update['message']['from']['id'];
-            $user->status = 'menu';
-            $user->save();
-            $rating = new UserRating();
-            $rating->user_id = $user->id;
-            $rating->save();
+            $user = $this->newUser($update);
             $this->main_menu($user, 'Привет '.$user->fname."! Я помогу тебе пополнить словарный запас и перевести текст в экстренной ситуации. Пиши мне в любое время, не стесняйся");
+        }
+        elseif ($user && ! $user->chat_id){
+            $user->chat_id = $update['message']['chat']['id'];
+            $user->save();
         }
         else{
             $this->main_menu($user);
@@ -183,6 +204,9 @@ class TelegramController extends Controller
             $user->save();
             if($res<0)
                 $res = 0;
+            $rating  = $user->rating()->first();
+            $rating->totalrating += $res/100;
+            $rating->save();
             $this->main_menu($user, "Тест пройден с результатом ".$res."%");
             return 'ok';
         }
@@ -271,7 +295,6 @@ class TelegramController extends Controller
             $user->failed += 1;
             $user->save();
             $rating = $user->rating()->first();
-            $rating->true_answers-=1;
             $rating->false_answers+=1;
             $rating->save();
             $word = Word::where('id','=',$user->current)->first();

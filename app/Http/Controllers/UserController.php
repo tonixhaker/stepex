@@ -11,7 +11,7 @@ class UserController extends Controller
 
     public function getCurrentUser(Request $request){
         //dd($request->uid);
-        return User::where('uid',$request->uid)->first();
+        return User::where('uid',$request->uid)->with('rating')->first();
     }
 
 }
