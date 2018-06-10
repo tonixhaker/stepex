@@ -7,6 +7,7 @@ import {BrowserRouter as Router, Route,} from 'react-router-dom';
 import User from '../containers/User';
 import Words from '../containers/Words';
 import Statistic from '../containers/Statistic';
+import Translator from '../containers/Translator';
 
 class Logged extends React.Component {
     render() {
@@ -35,7 +36,13 @@ class Logged extends React.Component {
                                     <span>Words</span>
                                 </Link>
                             </Menu.Item>
-                            <Menu.Item key="4" className={"logout_button"}>
+                            <Menu.Item key="4">
+                                <Link to="/translator">
+                                    <Icon type="retweet" />
+                                    <span>Translator</span>
+                                </Link>
+                            </Menu.Item>
+                            <Menu.Item key="5" className={"logout_button"}>
                                 <a href="/logout">
                                     <Icon type="logout" />
                                     <span>Logout</span>
@@ -48,6 +55,7 @@ class Logged extends React.Component {
                             <Route path="/user" component={User} />
                             <Route path="/words" component={Words} />
                             <Route path="/statistic" component={Statistic} />
+                            <Route path="/translator" component={Translator} />
                         </Content>
                         <Footer style={{ textAlign: 'center' }}>
                            EasyEnglish ©2018

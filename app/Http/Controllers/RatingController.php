@@ -8,9 +8,13 @@ use Illuminate\Http\Request;
 class RatingController extends Controller
 {
     public function getUsrRating(Request $request){
-        error_log("DA");
         $user = User::where('uid',$request->uid)->first();
-        $rating = $user->rating()->first();
-        return $rating;
+        if($user) {
+            $rating = $user->rating()->first();
+            return $rating;
+        }
+        else{
+            return response("User not found",404);
+        }
     }
 }

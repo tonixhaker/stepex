@@ -19,6 +19,7 @@ Route::get('/statistic', 'LoginController@index');
 Route::get('/words', 'LoginController@index');
 Route::get('/logout', 'LoginController@logout');
 Route::get('/login', 'LoginController@login');
+Route::get('/translator', 'LoginController@index');
 
 //Route::group([
 //    'middleware' => ['api', 'cors'],

@@ -3,12 +3,14 @@ import { createLogger } from 'redux-logger';
 import createSagaMiddleware from 'redux-saga';
 import saga from './saga';
 
-import user from "./user/reducer"
-import statistic from "./statistic/reducer"
+import user from "./user/reducer";
+import statistic from "./statistic/reducer";
+import words from "./words/reducer";
 
 const appReducers = combineReducers({
     user,
-    statistic
+    statistic,
+    words,
 });
 
 const loggerMiddleware = createLogger();
