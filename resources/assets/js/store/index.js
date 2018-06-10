@@ -4,9 +4,11 @@ import createSagaMiddleware from 'redux-saga';
 import saga from './saga';
 
 import user from "./user/reducer"
+import statistic from "./statistic/reducer"
 
 const appReducers = combineReducers({
-    user
+    user,
+    statistic
 });
 
 const loggerMiddleware = createLogger();

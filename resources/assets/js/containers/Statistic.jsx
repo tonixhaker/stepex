@@ -1,16 +1,34 @@
 import React, {Component} from 'react';
 import {connect} from "react-redux";
-import {getItem, test} from "../store/statistic/actions";
+import Answers from '../components/graphics/pie';
+import WordsLearned from '../components/graphics/words_learned';
+import UsersCompare from '../components/graphics/user_compare'
+
+
+import {getItem} from "../store/statistic/actions";
 
 class Statistic extends Component{
+
     componentDidMount(){
-        this.props.getItem(this.props.user.uid);
-        console.log(this.props.user.uid);
+        this.props.getItem(this.props.uid);
     }
+
+
     render (){
         return(
-            <div>
-                STATISTIC
+            <div className={"flex_row"}>
+                <div>
+                    <Answers rating={this.props.rating} />
+                </div>
+                <div>
+                    <WordsLearned rating={this.props.rating} />
+                </div>
+                <div>
+                    
+                </div>
+                <div>
+                    <UsersCompare rating={this.props.rating} />
+                </div>
             </div>
         );
     }
@@ -18,12 +36,12 @@ class Statistic extends Component{
 
 function mapStateToProps(state){
     return{
-        user:state.user.item
+        uid:state.statistic.uid,
+        rating:state.statistic.rating
     }
 }
 
 const mapDispatchToProps = dispatch => ({
-    test: () => dispatch(test()),
     getItem: (uid) => dispatch(getItem(uid))
 });
 

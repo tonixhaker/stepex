@@ -1,0 +1,14 @@
+.little{
+  width: 100px;
+  height: 100px;
+}
+
+.flex_row{
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.flex_row div{
+  width: 500px;
+}

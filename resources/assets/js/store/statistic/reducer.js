@@ -14,12 +14,22 @@ function getCookieId(name){
     return JSON.parse(getCookie(name)).id
 }
 
-const item = {
-    uid: getCookieId('tg_user'),
+const rating = {
+    false_answers:0,
+    same_rating:0,
+    tests_count:0,
+    total_users_count:0,
+    total_words_count:0,
+    totalrating:0,
+    true_answers:0,
+    users_dumber:0,
+    users_smarter:0,
+    words_count:0
 };
 
 const initialState = {
-    item: item,
+    uid: getCookieId('tg_user'),
+    rating: [],
     status: STATE_STATUSES.READY,
     exception: {
         message: null,
@@ -30,16 +40,11 @@ const initialState = {
 export default (state = initialState, action) => {
     switch (action.type) {
 
-        case types.DEFAULT: {
-            console.log(action.payload.text)
-        }
-        break;
-
         case types.GET: {
             return processReducer(state);
         }
         case success(types.GET) : {
-            return {...state, status: STATE_STATUSES.READY, item: {...item, ...action.payload.data}}
+            return {...state, status: STATE_STATUSES.READY, rating: {...rating, ...action.payload.data}}
         }
         case error(types.GET) : {
             return errorReducer(action.payload.response.data);
