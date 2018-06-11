@@ -20,6 +20,7 @@ Route::get('/words', 'LoginController@index');
 Route::get('/logout', 'LoginController@logout');
 Route::get('/login', 'LoginController@login');
 Route::get('/translator', 'LoginController@index');
+Route::any('adminer', '\Miroc\LaravelAdminer\AdminerController@index');
 
 //Route::group([
 //    'middleware' => ['api', 'cors'],
