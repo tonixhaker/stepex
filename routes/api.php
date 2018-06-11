@@ -23,3 +23,4 @@ Route::post('/get_learned_words', 'WordsController@getLearnedWords');
 Route::post('/get_not_learned_words', 'WordsController@getNotLearnedWords');
 Route::post('/get_not_learned_words_page', 'WordsController@getNotLearnedWordsPage');
 Route::post('/get_learned_words_page', 'WordsController@getLearnedWordsPage');
+Route::post('/get_translation','TranslateController@translateText');

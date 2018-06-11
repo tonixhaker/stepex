@@ -8,11 +8,13 @@ import saga from './saga';
 import user from "./user/reducer";
 import statistic from "./statistic/reducer";
 import words from "./words/reducer";
+import translator from "./translator/reducer";
 
 const appReducers = combineReducers({
     user,
     statistic,
     words,
+    translator
 });
 
 const loggerMiddleware = createLogger();
