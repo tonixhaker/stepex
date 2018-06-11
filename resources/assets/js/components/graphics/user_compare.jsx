@@ -6,6 +6,7 @@ import {connect} from "react-redux";
 class WordsLearned extends Component {
 
     render() {
+        console.log(this.props.rating);
         let data = {
             labels: [
                 'Users with higher rating',
@@ -25,11 +26,15 @@ class WordsLearned extends Component {
         let headerStyle = {
             textAlign: 'center'
         };
-
+        let options={
+            legend: {
+                display: false,
+            },
+        };
         return (
             <div>
                 <h2 style={headerStyle}>Position in users rating</h2>
-                <Bar data={data} />
+                <Bar data={data} options={options} />
             </div>
         );
     }

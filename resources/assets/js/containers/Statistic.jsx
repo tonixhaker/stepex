@@ -17,10 +17,10 @@ class Statistic extends Component{
     render (){
         return(
             <div className={"flex_row"}>
-                <div>
+                <div className={'flex_row500'}>
                     <Answers rating={this.props.rating} />
                 </div>
-                <div>
+                <div className={'flex_row500'}>
                     <WordsLearned rating={this.props.rating} />
                 </div>
                 <div className={"fullsize"}>
@@ -38,7 +38,7 @@ class Statistic extends Component{
                         <dd>Total users count</dd>
                     </dl>
                 </div>
-                <div>
+                <div className={"width700"}>
                     <UsersCompare rating={this.props.rating} />
                 </div>
             </div>

@@ -29510,7 +29510,7 @@ blockquote cite {
       flex-wrap: wrap;
 }
 
-.flex_row div {
+.flex_row500 {
   width: 500px;
 }
 
@@ -29557,5 +29557,9 @@ dd {
   margin-bottom: .3125em;
   border: 1px solid #BECFC7;
   border-left: none;
+}
+
+.width700 {
+  width: 600px !important;
 }
 
