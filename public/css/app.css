@@ -29309,6 +29309,22 @@ button.close {
   overflow-y: auto;
 }
 
+.word_search_div {
+  margin-top: 10px;
+  margin-bottom: 20px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.word_search_div span.ant-input-search {
+  width: 50%;
+}
+
 .user_img {
   border-radius: 50%;
   width: 300px;

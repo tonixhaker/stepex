@@ -25,3 +25,15 @@
   max-height: 100vh;
   overflow-y: auto;
 }
+
+.word_search_div{
+  margin-top: 10px;
+  margin-bottom: 20px;
+  display: flex;
+  width:100%;
+  justify-content:center;
+}
+
+.word_search_div span.ant-input-search{
+  width:50%;
+}

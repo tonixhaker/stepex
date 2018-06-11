@@ -1,7 +1,7 @@
-import React, {Component} from 'react';
+import React, {Component, Fragment} from 'react';
 import {connect} from "react-redux";
 import {getNotLearnedWords, setPagination, getItems} from '../store/words/actions';
-import { Table } from 'antd';
+import { Table, Input } from 'antd';
 
 class LearnedWords extends Component{
     componentDidMount(){
@@ -16,6 +16,8 @@ class LearnedWords extends Component{
     }
 
     render (){
+
+        const Search = Input.Search;
 
         const columns = [{
             title: 'English',
@@ -41,15 +43,26 @@ class LearnedWords extends Component{
 
 
         return(
-            <Table
-                dataSource={this.props.words.data}
-                expandRowByClick={true}
-                bordered={true}
-                pagination={{ position: 'both', total:this.props.words.total, showSizeChanger:true, showQuickJumper:true }}
-                expandedRowRender={record => <Table dataSource={record.examples} size={'small'} pagination={false} columns={subcolumns} />}
-                columns={columns}
-                onChange={(page) => this.onChange(page)}
-            />
+            <Fragment>
+                <div className={'word_search_div'}>
+                    <Search
+                        placeholder="input search word or transcription"
+                        enterButton="Search"
+                        size="large"
+                        onSearch={value => console.log(value)}
+                    />
+                </div>
+
+                <Table
+                    dataSource={this.props.words.data}
+                    expandRowByClick={true}
+                    bordered={true}
+                    pagination={{ total:this.props.words.total, showSizeChanger:true, showQuickJumper:true }}
+                    expandedRowRender={record => <Table dataSource={record.examples} size={'small'} pagination={false} columns={subcolumns} />}
+                    columns={columns}
+                    onChange={(page) => this.onChange(page)}
+                />
+            </Fragment>
         );
     }
 }
