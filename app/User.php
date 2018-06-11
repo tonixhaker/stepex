@@ -19,7 +19,7 @@ class User extends Authenticatable
 
     public function words()
     {
-        return $this->hasMany('App\UserWords');
+        return $this->hasMany('App\UserWords')->with('word');
     }
 
     public function words_id(){

@@ -13,9 +13,13 @@ class UserWords extends Model
         'examples'
     ];
 
-    public function word()
+    public function user()
     {
         return $this->belongsTo('App\User');
+    }
+
+    public function word(){
+        return $this->hasOne(Word::class, 'id','word_id');
     }
 
     public function getEngAttribute()

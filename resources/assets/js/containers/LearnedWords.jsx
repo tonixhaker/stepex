@@ -1,21 +1,26 @@
-import React, {Component} from 'react';
+import React, {Component, Fragment} from 'react';
 import {connect} from "react-redux";
-import {getLearnedWords, getItemsLearned, setPagination} from '../store/words/actions';
-import { Table } from 'antd';
+import {getItemsLearned, setPagination, setFilters} from '../store/words/actions';
+import { Table,Input } from 'antd';
 
 class LearnedWords extends Component{
     componentDidMount(){
-        this.props.getLearnedWords(this.props.uid);
-        console.log(this.props.words);
+        this.props.getItemsLearned({'uid':this.props.uid});
     }
 
     onChange(page){
         this.props.setPagination(page);
         this.props.getItemsLearned({'uid':this.props.uid});
-        console.log(page);
+    }
+
+    setFilters(value){
+        this.props.setFilters({'search':value});
+        this.props.getItemsLearned({'uid':this.props.uid});
     }
 
     render (){
+
+        const Search = Input.Search;
 
         const columns = [{
             title: 'English',
@@ -43,15 +48,25 @@ class LearnedWords extends Component{
 
 
         return(
-            <Table
-                dataSource={this.props.words.data}
-                expandRowByClick={true}
-                bordered={true}
-                pagination={{ position: 'both', total:this.props.words.total, showSizeChanger:true, showQuickJumper:true }}
-                expandedRowRender={record => <Table dataSource={record.examples} size={'small'} pagination={false} columns={subcolumns} />}
-                columns={columns}
-                onChange={(page) => this.onChange(page)}
-            />
+            <Fragment>
+                <div className={'word_search_div'}>
+                    <Search
+                        placeholder="input search word or transcription"
+                        enterButton="Search"
+                        size="large"
+                        onSearch={value => this.setFilters(value)}
+                    />
+                </div>
+                <Table
+                    dataSource={this.props.words.data}
+                    expandRowByClick={true}
+                    bordered={true}
+                    pagination={{ total:this.props.words.total, showSizeChanger:true, showQuickJumper:true }}
+                    expandedRowRender={record => <Table dataSource={record.examples} size={'small'} pagination={false} columns={subcolumns} />}
+                    columns={columns}
+                    onChange={(page) => this.onChange(page)}
+                />
+            </Fragment>
         );
     }
 }
@@ -63,9 +78,9 @@ function mapStateToProps(state){
     }
 }
 const mapDispatchToProps = dispatch => ({
-    getLearnedWords: (uid) => dispatch(getLearnedWords(uid)),
     getItemsLearned: (uid) => dispatch(getItemsLearned(uid)),
-    setPagination: (uid) => dispatch(setPagination(uid))
+    setPagination: (uid) => dispatch(setPagination(uid)),
+    setFilters: (data) => dispatch(setFilters(data))
 });
 
 

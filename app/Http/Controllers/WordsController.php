@@ -39,8 +39,16 @@ class WordsController extends Controller
             Paginator::currentPageResolver(function () use ($currentPage) {
                 return $currentPage;
             });
-            $words = Word::whereNotIn('id', $user->words_id())->with('examples')->paginate($per_page);
-            return $words;
+            //$words = Word::whereNotIn('id', $user->words_id())->with('examples')->paginate($per_page);
+            $query = Word::whereNotIn('id', $user->words_id())->with('examples');
+            if($request->search) {
+                $search = $request->search;
+
+                $query->where('eng','like',"%{$search}%");
+                $query->orWhere('ru','like',"%{$search}%");
+                $query->orWhere('transcription','like',"%{$search}%");
+            }
+            return $query->paginate($per_page);
         }
         else{
             return response("User not found",404);
@@ -55,7 +63,17 @@ class WordsController extends Controller
             Paginator::currentPageResolver(function () use ($currentPage) {
                 return $currentPage;
             });
-            return $user->words()->paginate($per_page);
+            //$user->words()->paginate($per_page);
+            $query = $user->words();
+            if($request->search) {
+                $search = $request->search;
+                $query->whereHas('word', function ($q) use ($search){
+                    $q->where('eng','like',"%{$search}%");
+                    $q->orWhere('ru','like',"%{$search}%");
+                    $q->orWhere('transcription','like',"%{$search}%");
+                });
+            }
+            return $query->paginate($per_page);
         }
         else{
             return response("User not found",404);

@@ -31,6 +31,13 @@ export const setPagination = (data) => ({
     }
 });
 
+export const setFilters = (data) => ({
+    type: types.FILTERS,
+    payload: {
+        data: data
+    }
+});
+
 
 export const getItems = (data) => (dispatch, getState) => {
     const currentState = getState();

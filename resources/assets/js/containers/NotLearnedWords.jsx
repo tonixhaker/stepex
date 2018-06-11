@@ -1,18 +1,21 @@
 import React, {Component, Fragment} from 'react';
 import {connect} from "react-redux";
-import {getNotLearnedWords, setPagination, getItems} from '../store/words/actions';
+import {setPagination, getItems, setFilters} from '../store/words/actions';
 import { Table, Input } from 'antd';
 
 class LearnedWords extends Component{
     componentDidMount(){
-        this.props.getNotLearnedWords(this.props.uid);
-        console.log(this.props.words);
+        this.props.getItems({'uid':this.props.uid});
     }
 
     onChange(page){
         this.props.setPagination(page);
         this.props.getItems({'uid':this.props.uid});
-        console.log(page);
+    }
+
+    setFilters(value){
+        this.props.setFilters({'search':value});
+        this.props.getItems({'uid':this.props.uid});
     }
 
     render (){
@@ -49,7 +52,7 @@ class LearnedWords extends Component{
                         placeholder="input search word or transcription"
                         enterButton="Search"
                         size="large"
-                        onSearch={value => console.log(value)}
+                        onSearch={value => this.setFilters(value)}
                     />
                 </div>
 
@@ -74,9 +77,9 @@ function mapStateToProps(state){
     }
 }
 const mapDispatchToProps = dispatch => ({
-    getNotLearnedWords: (uid) => dispatch(getNotLearnedWords(uid)),
     setPagination:(data) => dispatch(setPagination(data)),
-    getItems:(data) => dispatch(getItems(data))
+    getItems:(data) => dispatch(getItems(data)),
+    setFilters: (data) => dispatch(setFilters(data))
 });
 
 
