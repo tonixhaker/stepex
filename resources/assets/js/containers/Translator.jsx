@@ -55,7 +55,7 @@ class Translator extends Component{
             <Fragment>
                 <h1 className={'trans-center-text'}>Translator</h1>
                 <Row className={'trans-container'}>
-                    <Col span={6} offset={5} className={'centerv'}>
+                    <Col span={7} offset={4} className={'centerv'}>
                         <div>
                             <h3 className={'trans-float-left trans-no-top-margin'}>From</h3>
                             <Select className={'trans-float-right'} value={this.props.from_lang} style={{ width: 200 }} onChange={(value) => this.from_language_change(value)}>
@@ -72,7 +72,7 @@ class Translator extends Component{
                             <Button type="primary" size={'large'} shape="circle" icon="swap" disabled={!this.state.swap}  onClick={()=>this.switch_languages()}/>
                         </div>
                     </Col>
-                    <Col span={6}>
+                    <Col span={7}>
                         <div>
                             <h3 className={'trans-float-left trans-no-top-margin'}>To</h3>
                             <Select className={'trans-float-right'} value={this.props.to_lang} style={{ width: 200 }} onChange={(value) => this.to_language_change(value)}>
