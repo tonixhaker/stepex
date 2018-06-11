@@ -12,8 +12,8 @@ class LoginController extends Controller
 {
     public function index(){
         //return view('welcome');
-        return view('logged');
-        //return $this->if_logged();
+        //return view('logged');
+        return $this->if_logged();
     }
 
     function if_logged()
