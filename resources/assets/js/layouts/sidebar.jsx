@@ -27,13 +27,7 @@ const nav = [
         name: 'translator',
         icon: 'retweet',
         title: 'Translator'
-    },
-    {
-        to: '/user',
-        name: 'user-info',
-        icon: 'idcard',
-        title: 'User Info'
-    },
+    }
 
 ];
 
@@ -64,6 +58,12 @@ class Logged extends React.Component {
                             </Menu.Item>
                         );
                     })}
+                    <Menu.Item key="5" className={"logout_button"}>
+                        <a href="/logout">
+                            <Icon type="logout" />
+                            <span>Logout</span>
+                        </a>
+                    </Menu.Item>
                 </Menu>
             </Sider>
         );

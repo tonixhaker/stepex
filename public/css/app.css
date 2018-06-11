@@ -1,6 +1,6 @@
 @import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);/*!
  * 
- * antd v3.6.2
+ * antd v3.6.1
  * 
  * Copyright 2015-present, Alipay, Inc.
  * All rights reserved.
@@ -4957,12 +4957,11 @@ textarea.ant-input {
 .ant-btn + .ant-btn-group,
 .ant-btn-group span + .ant-btn,
 .ant-btn-group .ant-btn + span,
-.ant-btn-group > span + span,
 .ant-btn-group + .ant-btn,
 .ant-btn-group + .ant-btn-group {
   margin-left: -1px;
 }
-.ant-btn-group .ant-btn-primary + .ant-btn:not(.ant-btn-primary):not([disabled]) {
+.ant-btn-group .ant-btn-primary + .ant-btn:not(.ant-btn-primary) {
   border-left-color: transparent;
 }
 .ant-btn-group .ant-btn:not(:first-child):not(:last-child) {
@@ -5851,7 +5850,7 @@ a.ant-btn-sm {
   color: rgba(0, 0, 0, 0.25);
 }
 .ant-fullcalendar-fullscreen .ant-fullcalendar-content {
-  height: 88px;
+  height: 90px;
   overflow-y: auto;
   position: static;
   width: auto;
@@ -15112,7 +15111,6 @@ textarea.ant-input-number {
 .ant-spin-dot {
   position: relative;
   display: inline-block;
-  font-size: 20px;
   width: 20px;
   height: 20px;
 }
@@ -15160,7 +15158,6 @@ textarea.ant-input-number {
           animation: antRotate 1.2s infinite linear;
 }
 .ant-spin-sm .ant-spin-dot {
-  font-size: 14px;
   width: 14px;
   height: 14px;
 }
@@ -15169,7 +15166,6 @@ textarea.ant-input-number {
   height: 6px;
 }
 .ant-spin-lg .ant-spin-dot {
-  font-size: 32px;
   width: 32px;
   height: 32px;
 }
