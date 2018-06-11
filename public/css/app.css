@@ -29304,6 +29304,11 @@ button.close {
   bottom: 0;
 }
 
+.main_content_block_layout {
+  max-height: 100vh;
+  overflow-y: auto;
+}
+
 .user_img {
   border-radius: 50%;
   width: 300px;

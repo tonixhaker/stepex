@@ -20,3 +20,8 @@
   position: absolute!important;
   bottom:0;
 }
+
+.main_content_block_layout{
+  max-height: 100vh;
+  overflow-y: auto;
+}

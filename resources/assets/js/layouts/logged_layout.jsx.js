@@ -50,7 +50,7 @@ class Logged extends React.Component {
                             </Menu.Item>
                         </Menu>
                     </Sider>
-                    <Layout>
+                    <Layout className={'main_content_block_layout'}>
                         <Content style={{ margin: '0 16px' }}>
                             <Route path="/user" component={User} />
                             <Route path="/words" component={Words} />
