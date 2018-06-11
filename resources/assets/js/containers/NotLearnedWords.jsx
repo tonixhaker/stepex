@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from "react-redux";
-import {getNotLearnedWords} from '../store/words/actions';
+import {getNotLearnedWords, setPagination, getItems} from '../store/words/actions';
 import { Table } from 'antd';
 
 class LearnedWords extends Component{
@@ -10,6 +10,8 @@ class LearnedWords extends Component{
     }
 
     onChange(page){
+        this.props.setPagination(page);
+        this.props.getItems({'uid':this.props.uid});
         console.log(page);
     }
 
@@ -59,7 +61,9 @@ function mapStateToProps(state){
     }
 }
 const mapDispatchToProps = dispatch => ({
-    getNotLearnedWords: (uid) => dispatch(getNotLearnedWords(uid))
+    getNotLearnedWords: (uid) => dispatch(getNotLearnedWords(uid)),
+    setPagination:(data) => dispatch(setPagination(data)),
+    getItems:(data) => dispatch(getItems(data))
 });
 
 

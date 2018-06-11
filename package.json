@@ -32,6 +32,8 @@
     "redux-logger": "^3.0.6",
     "redux-saga": "^0.16.0",
     "redux-saga-requests": "^0.13.0",
-    "redux-saga-requests-axios": "^0.6.1"
+    "redux-saga-requests-axios": "^0.6.1",
+    "redux-saga-thunk": "^0.7.1",
+    "redux-thunk": "^2.3.0"
   }
 }

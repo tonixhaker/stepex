@@ -21,3 +21,4 @@ Route::post('/get_current_user', 'UserController@getCurrentUser');
 Route::post('/get_current_rating', 'RatingController@getUsrRating');
 Route::post('/get_learned_words', 'WordsController@getLearnedWords');
 Route::post('/get_not_learned_words', 'WordsController@getNotLearnedWords');
+Route::post('/get_not_learned_words_page', 'WordsController@getNotLearnedWordsPage');

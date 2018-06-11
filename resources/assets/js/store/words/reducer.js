@@ -17,6 +17,11 @@ const words = [];
 const initialState = {
     uid: getCookieId('tg_user'),
     words: words,
+    pagination: {
+        current: 10,
+        pageSize: 1
+    },
+    filters:'',
     status: STATE_STATUSES.READY,
     exception: {
         message: null,
@@ -35,6 +40,21 @@ export default (state = initialState, action) => {
         }
         case error(types.GET) : {
             return errorReducer(action.payload.response.data);
+        }
+
+
+        case types.PAGINATION:{
+            return {...state, pagination:{...action.payload.data}}
+        }
+
+        case types.PAGINATION_LIST: {
+            return processReducer(state);
+        }
+        case success(types.PAGINATION_LIST) : {
+            return {...state, status: STATE_STATUSES.READY, words: {...words, ...action.payload.data}}
+        }
+        case error(types.PAGINATION_LIST) : {
+            return errorReducer(state, action.payload.response.data);
         }
 
         default:
