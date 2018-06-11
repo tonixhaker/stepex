@@ -1,12 +1,18 @@
 import React, {Component} from 'react';
 import {connect} from "react-redux";
-import {getLearnedWords} from '../store/words/actions';
+import {getLearnedWords, getItemsLearned, setPagination} from '../store/words/actions';
 import { Table } from 'antd';
 
 class LearnedWords extends Component{
     componentDidMount(){
         this.props.getLearnedWords(this.props.uid);
         console.log(this.props.words);
+    }
+
+    onChange(page){
+        this.props.setPagination(page);
+        this.props.getItemsLearned({'uid':this.props.uid});
+        console.log(page);
     }
 
     render (){
@@ -40,8 +46,12 @@ class LearnedWords extends Component{
             <Table
                 dataSource={this.props.words.data}
                 expandRowByClick={true}
-                expandedRowRender={record => <Table dataSource={record.examples} pagination={false} columns={subcolumns} />}
-                columns={columns} />
+                bordered={true}
+                pagination={{ position: 'both', total:this.props.words.total, showSizeChanger:true, showQuickJumper:true }}
+                expandedRowRender={record => <Table dataSource={record.examples} size={'small'} pagination={false} columns={subcolumns} />}
+                columns={columns}
+                onChange={(page) => this.onChange(page)}
+            />
         );
     }
 }
@@ -53,7 +63,9 @@ function mapStateToProps(state){
     }
 }
 const mapDispatchToProps = dispatch => ({
-    getLearnedWords: (uid) => dispatch(getLearnedWords(uid))
+    getLearnedWords: (uid) => dispatch(getLearnedWords(uid)),
+    getItemsLearned: (uid) => dispatch(getItemsLearned(uid)),
+    setPagination: (uid) => dispatch(setPagination(uid))
 });
 
 

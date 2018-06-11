@@ -46,4 +46,19 @@ class WordsController extends Controller
             return response("User not found",404);
         }
     }
+
+    public function getLearnedWordsPage(Request $request){
+        $user = User::where('uid',$request->uid)->first();
+        if($user) {
+            $per_page = $request->pageSize;
+            $currentPage = $request->current;
+            Paginator::currentPageResolver(function () use ($currentPage) {
+                return $currentPage;
+            });
+            return $user->words()->paginate($per_page);
+        }
+        else{
+            return response("User not found",404);
+        }
+    }
 }
