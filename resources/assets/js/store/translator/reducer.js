@@ -43,7 +43,7 @@ export default (state = initialState, action) => {
         }
 
         case types.LANGS:{
-            return{...state, langs:action.payload.data.langs};
+            return{...state, langs:action.payload.data};
         }
 
 
