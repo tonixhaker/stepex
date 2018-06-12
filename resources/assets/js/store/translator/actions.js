@@ -13,6 +13,18 @@ export const getTranslate = () => (dispatch, getState) => {
     })
 };
 
+export const getLangsList = () => (dispatch) => {
+    return dispatch({
+        type: types.LANGS,
+        payload: {
+            request: {
+                method: 'get',
+                url: `api/get_langs_list`
+            }
+        }
+    })
+};
+
 export const setFromLang = (data) => ({
     type: types.SET_FROM_LANG,
     payload: {

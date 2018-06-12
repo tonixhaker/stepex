@@ -1,7 +1,7 @@
 import React, {Component, Fragment} from 'react';
 import { Input, Row, Col,Select,Button } from 'antd';
 import {connect} from "react-redux";
-import {getTranslate, setFromLang, setToLang, setFromText} from "../store/translator/actions";
+import {getTranslate, setFromLang, setToLang, setFromText, getLangsList} from "../store/translator/actions";
 
 const { TextArea } = Input;
 const Option = Select.Option;
@@ -17,6 +17,7 @@ class Translator extends Component{
 
 
     componentDidMount(){
+        this.props.getLangsList();
         console.log(this.props);
     }
 
@@ -60,7 +61,7 @@ class Translator extends Component{
                             <h3 className={'trans-float-left trans-no-top-margin'}>From</h3>
                             <Select className={'trans-float-right'} value={this.props.from_lang} style={{ width: 200 }} onChange={(value) => this.from_language_change(value)}>
                                 <Option value="auto">Auto</Option>
-                                <Option value="eng">English</Option>
+                                <Option value="en">English</Option>
                                 <Option value="ru">Russian</Option>
                                 <Option value="ukr">Ukrainian</Option>
                             </Select>
@@ -107,7 +108,8 @@ const mapDispatchToProps = dispatch => ({
     getTranslate: () => dispatch(getTranslate()),
     setFromLang: (lang) => dispatch(setFromLang(lang)),
     setToLang: (lang) => dispatch(setToLang(lang)),
-    setFromText: (text) => dispatch(setFromText(text))
+    setFromText: (text) => dispatch(setFromText(text)),
+    getLangsList: () => dispatch(getLangsList())
 });
 
 

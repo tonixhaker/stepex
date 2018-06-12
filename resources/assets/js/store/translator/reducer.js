@@ -8,6 +8,7 @@ const initialState = {
     to_text:'',
     from_lang:'auto',
     to_lang:'eng',
+    langs:{},
     status: STATE_STATUSES.READY,
     exception: {
         message: null,
@@ -39,6 +40,10 @@ export default (state = initialState, action) => {
 
         case  types.SET_FROM_TEXT:{
             return {...state, from_text:action.payload.data};
+        }
+
+        case types.LANGS:{
+            return{...state, langs:action.payload.data};
         }
 
 
