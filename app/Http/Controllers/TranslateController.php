@@ -17,18 +17,13 @@ class TranslateController extends Controller
             $xml = simplexml_load_file($sURL);
             $from_lang = $xml['lang'];
         }
-        try {
-            $sURL = "https://translate.yandex.net/api/v1.5/tr/translate?key=" . env("TRANSLATE") . "&text=" . $from_text . "&lang=" . $from_lang . "-" . $to_lang . "&format=plain";
-            $xml = simplexml_load_file($sURL);
-            $res = (string)$xml->text;
+        $sURL = "https://translate.yandex.net/api/v1.5/tr/translate?key=" . env("TRANSLATE") . "&text=" . $from_text . "&lang=" . $from_lang . "-" . $to_lang . "&format=plain";
+        $xml = simplexml_load_file($sURL);
+        $res = (string)$xml->text;
 
-            return response()->json([
-                'to_text' => $res
-            ]);
-        }catch (\Exception $e){
-            return response()->json([
-                'to_text' => $e
-            ]);
-        }
+        return response()->json([
+            'to_text' => $res
+        ]);
+
     }
 }
