@@ -322,10 +322,10 @@ class TelegramController extends Controller
     }
     function translate($text,$user)
     {
-        $response = Telegram::sendMessage([
-            'chat_id' => $user->chat_id,
-            'text' => 'Сейчас, только в словарик подсмотрю, сек'
-        ]);
+//        $response = Telegram::sendMessage([
+//            'chat_id' => $user->chat_id,
+//            'text' => 'Сейчас, только в словарик подсмотрю, сек'
+//        ]);
         try {
             $sURL = "https://translate.yandex.net/api/v1.5/tr/detect?key=" . env("TRANSLATE") . "&text=" . $text;
             $xml = simplexml_load_file($sURL);
