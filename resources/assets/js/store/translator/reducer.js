@@ -42,8 +42,14 @@ export default (state = initialState, action) => {
             return {...state, from_text:action.payload.data};
         }
 
-        case types.LANGS:{
-            return{...state, langs:action.payload.data};
+        case types.LANGS: {
+            return processReducer(state);
+        }
+        case success(types.LANGS) : {
+            return {...state, status: STATE_STATUSES.READY, langs:action.payload.data.langs.langs}
+        }
+        case error(types.LANGS) : {
+            return errorReducer(action.payload.response.data);
         }
 
 
