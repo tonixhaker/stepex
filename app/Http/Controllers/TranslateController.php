@@ -31,7 +31,7 @@ class TranslateController extends Controller
         $sURL = "https://translate.yandex.net/api/v1.5/tr.json/getLangs?ui=en&key=" . env("TRANSLATE");
         $json = file_get_contents($sURL);
         $obj = json_decode($json);
-        return response()->json($obj->langs);
+        return response()->json(['langs' => $obj->langs]);
 
     }
 }
