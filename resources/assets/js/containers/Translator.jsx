@@ -17,8 +17,7 @@ class Translator extends Component{
 
 
     componentDidMount(){
-        this.props.getLangsList();
-        console.log(this.props);
+        //this.props.getLangsList();
     }
 
 
@@ -61,9 +60,13 @@ class Translator extends Component{
                             <h3 className={'trans-float-left trans-no-top-margin'}>From</h3>
                             <Select className={'trans-float-right'} value={this.props.from_lang} style={{ width: 200 }} onChange={(value) => this.from_language_change(value)}>
                                 <Option value="auto">Auto</Option>
-                                <Option value="en">English</Option>
-                                <Option value="ru">Russian</Option>
-                                <Option value="ukr">Ukrainian</Option>
+                                {
+
+                                    Object.keys(this.props.langs).map(function(key, index) {
+                                        return (
+                                            <Option key={index} value={key}>{this.props.langs[key]}</Option>
+                                        );
+                                }.bind(this))}
                             </Select>
                         </div>
                         <TextArea rows={10} value={this.props.from_text} onChange={(value) => this.from_text_change(value)} />
@@ -77,9 +80,12 @@ class Translator extends Component{
                         <div>
                             <h3 className={'trans-float-left trans-no-top-margin'}>To</h3>
                             <Select className={'trans-float-right'} value={this.props.to_lang} style={{ width: 200 }} onChange={(value) => this.to_language_change(value)}>
-                                <Option value="eng">English</Option>
-                                <Option value="ru">Russian</Option>
-                                <Option value="ukr">Ukrainian</Option>
+                                {
+                                    Object.keys(this.props.langs).map(function(key, index) {
+                                        return (
+                                            <Option key={index} value={key}>{this.props.langs[key]}</Option>
+                                        );
+                                    }.bind(this))}
                             </Select>
                         </div>
                         <TextArea rows={10} value={this.props.to_text} />
@@ -100,7 +106,8 @@ function mapStateToProps(state){
         from_lang:state.translator.from_lang,
         to_lang:state.translator.to_lang,
         from_text:state.translator.from_text,
-        to_text:state.translator.to_text
+        to_text:state.translator.to_text,
+        langs:state.translator.langs
     }
 }
 

@@ -7,8 +7,14 @@ const initialState = {
     from_text:'',
     to_text:'',
     from_lang:'auto',
-    to_lang:'eng',
-    langs:{},
+    to_lang:'en',
+    langs:{
+        af: "Afrikaans",
+        am: "Amharic",
+        ar: "Arabic",
+        az: "Azerbaijani",
+        ba: "Bashkir"
+    },
     status: STATE_STATUSES.READY,
     exception: {
         message: null,
