@@ -17,7 +17,7 @@ class Translator extends Component{
 
 
     componentDidMount(){
-        //this.props.getLangsList();
+        this.props.getLangsList();
     }
 
 
