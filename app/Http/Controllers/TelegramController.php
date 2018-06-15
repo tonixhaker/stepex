@@ -18,9 +18,6 @@ class TelegramController extends Controller
             if(isset($update['message']['entities'][0]['type']) && $update['message']['entities'][0]['type']=='bot_command') {
                 $this->commandsHandler($update);
             }
-//            else if(isset($update['message']['photo']) || isset($update['message']['sticker']) || isset($update['message']['document'])){
-//                $this->wrong_input($update);
-//            }
             else if(isset($update['message']['text']) && $user){
                 $this->userroute($update['message']['text'], $user);
             }
@@ -61,11 +58,11 @@ class TelegramController extends Controller
 
     public function newUser($update){
         $user = new User();
-        $user->fname = $update['message']['from']['first_name'];
-        $user->lname = $update['message']['from']['last_name'];
-        $user->uname = isset($update['message']['from']['username'])?$update['message']['from']['username']:null;
-        $user->chat_id = $update['message']['chat']['id'];
-        $user->uid = $update['message']['from']['id'];
+        $user->fname = isset($update['message']['from']['first_name']) ? $update['message']['from']['first_name'] : null;
+        $user->lname = isset($update['message']['from']['last_name']) ? $update['message']['from']['last_name'] : null;
+        $user->uname = isset($update['message']['from']['username'])? $update['message']['from']['username']:null;
+        $user->chat_id = isset($update['message']['chat']['id']) ? $update['message']['chat']['id'] : null;
+        $user->uid = isset($update['message']['from']['id']) ? $update['message']['from']['id'] : null;
         $user->status = 'menu';
         $user->save();
         $rating = new UserRating();

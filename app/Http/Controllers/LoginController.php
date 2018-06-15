@@ -31,11 +31,11 @@ class LoginController extends Controller
         $user = User::where('uid',$auth_data['id'])->first();
         if(!$user){
             $user = new User();
-            $user->fname = $auth_data['first_name'];
-            $user->lname = $auth_data['last_name'];
-            $user->uname = $auth_data['username'];
-            $user->uid = $auth_data['id'];
-            $user->photo_url = $auth_data['photo_url'];
+            $user->fname = isset($auth_data['first_name']) ? $auth_data['first_name'] : null;
+            $user->lname = isset($auth_data['last_name']) ? $auth_data['last_name'] : null;
+            $user->uname = isset($auth_data['username']) ? $auth_data['username'] : null;
+            $user->uid = isset($auth_data['id']) ? $auth_data['id'] : null;
+            $user->photo_url = isset($auth_data['photo_url']) ? $auth_data['photo_url'] : null;
             $user->status = 'menu';
             $user->save();
             $rating = new UserRating();
