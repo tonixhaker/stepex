@@ -27,6 +27,12 @@ const nav = [
         name: 'translator',
         icon: 'retweet',
         title: 'Translator'
+    },
+    {
+        to: '/learn_words',
+        name: 'learn',
+        icon: 'bulb',
+        title: 'Learn new words'
     }
 
 ];

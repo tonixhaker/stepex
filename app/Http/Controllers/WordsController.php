@@ -104,4 +104,12 @@ class WordsController extends Controller
 
     }
 
+    public function getRandom(Request $request){
+        $user = User::where('uid',$request->uid)->first();
+        if(!$user){
+            return response("User not found",404);
+        }
+        return Word::whereNotIn('id',$user->words_id())->inRandomOrder()->with('examples')->first();
+    }
+
 }

@@ -28,4 +28,5 @@ Route::post('/get_not_learned_words', 'WordsController@getNotLearnedWords');
 Route::post('/get_learned_words_page', 'WordsController@getLearnedWordsPage');
 Route::post('/get_not_learned_words_page', 'WordsController@getNotLearnedWordsPage');
 Route::post('/forget_word','WordsController@forgetWord');
-ROute::post('/learn_word','WordsController@learnWord');
+Route::post('/learn_word','WordsController@learnWord');
+Route::post('/get_random_word','WordsController@getRandom');
