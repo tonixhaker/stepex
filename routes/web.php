@@ -21,6 +21,7 @@ Route::get('/logout', 'LoginController@logout');
 Route::get('/login', 'LoginController@login');
 Route::get('/translator', 'LoginController@index');
 Route::get('/learn_words', 'LoginController@index');
+Route::get('/test', 'LoginController@index');
 
 Route::any('adminer', '\Miroc\LaravelAdminer\AdminerController@index');
 

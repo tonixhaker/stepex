@@ -112,4 +112,87 @@ class WordsController extends Controller
         return Word::whereNotIn('id',$user->words_id())->inRandomOrder()->with('examples')->first();
     }
 
+    public function startTest(Request $request){
+        $user = User::where('uid',$request->uid)->first();
+        if(!$user){
+            return response("User not found",404);
+        }
+
+        $user->count = 10;
+        $user->status = 'test';
+        $user->failed=0;
+        $user->save();
+        return response()->json(['status'=>'success']);
+    }
+
+    public function nextWord(Request $request){
+        $user = User::where('uid',$request->uid)->first();
+        if(!$user){
+            return response("User not found",404);
+        }
+
+        if($user->status!='test'){
+            return response()->json(['user_status'=>'main']);
+        }
+
+        if($user->words()->count()<10){
+            return response("Learn a fiew words please",404);
+        }
+
+        if($user->count>0){
+            $word = $user->words()->inRandomOrder()->first();
+            $fake = Word::where('id','!=',$word->id)->inRandomOrder()->take(3)->get();
+            $user->current = $word->word_id;
+            $user->save();
+
+            $answers = [];
+            foreach ($fake as $f){
+                array_push($answers,$f->ru);
+            }
+            array_push($answers,$word->ru);
+            shuffle($answers);
+            return response()->json([
+                "word"=>$word,
+                "fakes"=>$answers,
+                "count"=>$user->count,
+                "user_status"=>'test'
+            ]);
+        }
+        $res = (10 -$user->failed) * 10;
+        if($res<0)
+        {
+            $res=0;
+            $user->status = 'main';
+        }
+        return response()->json([
+           "percent"=>$res
+        ]);
+    }
+
+    public function checkWord(Request $request){
+        $user = User::where('uid',$request->uid)->first();
+        if(!$user || !$request->answer || !isset($user->current)){
+            return response("User not found",404);
+        }
+
+        $word = Word::find($user->current)->ru;
+        $rating = $user->rating()->first();
+        $user->count-=1;
+        $user->save();
+
+        if($word == $request->answer){
+            $rating->true_answers+=1;
+            $rating->save();
+            return response()->json(["previous_answer_status" => "success"]);
+        }
+        else{
+            $user->failed += 1;
+            $user->save();
+            $rating->false_answers+=1;
+            $rating->save();
+            return response()->json(["previous_answer_status" => "wrong"]);
+        }
+    }
+
+
 }

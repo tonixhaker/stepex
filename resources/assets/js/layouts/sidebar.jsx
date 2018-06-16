@@ -33,6 +33,12 @@ const nav = [
         name: 'learn',
         icon: 'bulb',
         title: 'Learn new words'
+    },
+    {
+        to: '/test',
+        name: 'test',
+        icon: 'down-square-o',
+        title: 'Repeat words'
     }
 
 ];

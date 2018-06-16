@@ -30,3 +30,8 @@ Route::post('/get_not_learned_words_page', 'WordsController@getNotLearnedWordsPa
 Route::post('/forget_word','WordsController@forgetWord');
 Route::post('/learn_word','WordsController@learnWord');
 Route::post('/get_random_word','WordsController@getRandom');
+
+Route::post('/get_next','WordsController@nextWord');
+Route::post('/check_word','WordsController@checkWord');
+
+Route::post('/start_test','WordsController@startTest');

@@ -10,13 +10,15 @@ import statistic from "./statistic/reducer";
 import words from "./words/reducer";
 import translator from "./translator/reducer";
 import learn_new_words from "./learn_new_words/reducer";
+import test from './test/reducer';
 
 const appReducers = combineReducers({
     user,
     statistic,
     words,
     translator,
-    learn_new_words
+    learn_new_words,
+    test
 });
 
 const loggerMiddleware = createLogger();

@@ -7,6 +7,7 @@ import Words from '../containers/Words';
 import Statistic from '../containers/Statistic';
 import Translator from '../containers/Translator';
 import LearnNewWords from '../containers/LearnNewWords';
+import Test from '../containers/Test';
 import Sidebar from './sidebar'
 const { Content, Footer, Sider } = Layout;
 
@@ -25,6 +26,7 @@ class Logged extends React.Component {
                                     <Route path="/statistic" component={Statistic} />
                                     <Route path="/translator" component={Translator} />
                                     <Route path="/learn_words" component={LearnNewWords} />
+                                    <Route path="/test" component={Test} />
                                 </Switch>
 
                         </Content>
