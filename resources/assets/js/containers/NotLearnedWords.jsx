@@ -1,7 +1,7 @@
 import React, {Component, Fragment} from 'react';
 import {connect} from "react-redux";
-import {setPagination, getItems, setFilters} from '../store/words/actions';
-import { Table, Input } from 'antd';
+import {setPagination, getItems, setFilters, learnWord} from '../store/words/actions';
+import { Table, Input, Popconfirm, Button } from 'antd';
 
 class LearnedWords extends Component{
     componentDidMount(){
@@ -16,6 +16,12 @@ class LearnedWords extends Component{
     setFilters(value){
         this.props.setFilters({'search':value});
         this.props.getItems({'uid':this.props.uid});
+    }
+
+    learnWord(record){
+        this.props.learnWord(record.id, this.props.uid);
+        this.props.getItems({'uid':this.props.uid});
+        console.log(record);
     }
 
     render (){
@@ -34,6 +40,18 @@ class LearnedWords extends Component{
             title: 'Russian',
             dataIndex: 'ru',
             key: 'ru',
+        },{
+            title: 'Manage',
+            dataIndex: 'id',
+            key: 'id',
+            width: '5%',
+            render: (text, record) => {
+                return (
+                    <Popconfirm title="Add this word to learned?" onConfirm={()=>this.learnWord(record)}  okText="Yes" cancelText="No">
+                        <Button type={"primary"}>To Learned</Button>
+                    </Popconfirm>
+                );
+            }
         }];
 
         const subcolumns = [{
@@ -58,7 +76,6 @@ class LearnedWords extends Component{
 
                 <Table
                     dataSource={this.props.words.data}
-                    expandRowByClick={true}
                     bordered={true}
                     pagination={{ total:this.props.words.total, showSizeChanger:true, showQuickJumper:true }}
                     expandedRowRender={record => <Table dataSource={record.examples} size={'small'} pagination={false} columns={subcolumns} />}
@@ -79,7 +96,8 @@ function mapStateToProps(state){
 const mapDispatchToProps = dispatch => ({
     setPagination:(data) => dispatch(setPagination(data)),
     getItems:(data) => dispatch(getItems(data)),
-    setFilters: (data) => dispatch(setFilters(data))
+    setFilters: (data) => dispatch(setFilters(data)),
+    learnWord: (word, user) => dispatch(learnWord(word, user))
 });
 
 

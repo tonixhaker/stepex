@@ -1,7 +1,7 @@
 import React, {Component, Fragment} from 'react';
 import {connect} from "react-redux";
-import {getItemsLearned, setPagination, setFilters} from '../store/words/actions';
-import { Table,Input } from 'antd';
+import {getItemsLearned, setPagination, setFilters, forgetWord} from '../store/words/actions';
+import { Table,Input,Button,Popconfirm, message } from 'antd';
 
 class LearnedWords extends Component{
     componentDidMount(){
@@ -16,6 +16,12 @@ class LearnedWords extends Component{
     setFilters(value){
         this.props.setFilters({'search':value});
         this.props.getItemsLearned({'uid':this.props.uid});
+    }
+
+    forgetWord(record){
+        this.props.forgetWord(record.word_id,record.user_id);
+        this.props.getItemsLearned({'uid':this.props.uid});
+        //console.log(record);
     }
 
     render (){
@@ -34,6 +40,18 @@ class LearnedWords extends Component{
             title: 'Russian',
             dataIndex: 'ru',
             key: 'ru',
+        },{
+            title: 'Manage',
+            dataIndex: 'id',
+            key: 'id',
+            width: '5%',
+            render: (text, record) => {
+                return (
+                    <Popconfirm title="Are you sure forget this word?" onConfirm={()=>this.forgetWord(record)}  okText="Yes" cancelText="No">
+                        <Button type={"danger"}>Forget</Button>
+                    </Popconfirm>
+                );
+            }
         }];
 
         const subcolumns = [{
@@ -59,7 +77,6 @@ class LearnedWords extends Component{
                 </div>
                 <Table
                     dataSource={this.props.words.data}
-                    expandRowByClick={true}
                     bordered={true}
                     pagination={{ total:this.props.words.total, showSizeChanger:true, showQuickJumper:true }}
                     expandedRowRender={record => <Table dataSource={record.examples} size={'small'} pagination={false} columns={subcolumns} />}
@@ -80,7 +97,8 @@ function mapStateToProps(state){
 const mapDispatchToProps = dispatch => ({
     getItemsLearned: (uid) => dispatch(getItemsLearned(uid)),
     setPagination: (uid) => dispatch(setPagination(uid)),
-    setFilters: (data) => dispatch(setFilters(data))
+    setFilters: (data) => dispatch(setFilters(data)),
+    forgetWord: (word, user) => dispatch(forgetWord(word, user))
 });
 
 

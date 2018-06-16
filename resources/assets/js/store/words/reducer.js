@@ -61,6 +61,26 @@ export default (state = initialState, action) => {
             return errorReducer(state, action.payload.response.data);
         }
 
+        case types.FORGET: {
+            return processReducer(state);
+        }
+        case success(types.FORGET) : {
+            return {...state, status: STATE_STATUSES.READY}
+        }
+        case error(types.FORGET) : {
+            return errorReducer(state, action.payload.response.data);
+        }
+
+        case types.LEARN: {
+            return processReducer(state);
+        }
+        case success(types.LEARN) : {
+            return {...state, status: STATE_STATUSES.READY}
+        }
+        case error(types.LEARN) : {
+            return errorReducer(state, action.payload.response.data);
+        }
+
         default:
             return state;
     }

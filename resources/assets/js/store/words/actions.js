@@ -95,3 +95,25 @@ export const getItemsLearned = (data) => (dispatch, getState) => {
         }
     })
 };
+
+export const forgetWord = (word,user) => ({
+    type: types.FORGET,
+    payload: {
+        request: {
+            method: 'post',
+            url: `api/forget_word`,
+            data: {'word_id':word, 'user_id':user}
+        }
+    }
+});
+
+export const learnWord = (word,user) => ({
+    type: types.LEARN,
+    payload: {
+        request: {
+            method: 'post',
+            url: `api/learn_word`,
+            data: {'word_id':word, 'uid':user}
+        }
+    }
+});

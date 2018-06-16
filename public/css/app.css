@@ -29583,3 +29583,8 @@ dd {
   margin-top: 50px;
 }
 
+.hide_expand_column td.ant-table-row-expand-icon-cell,
+.hide_expand_column th.ant-table-expand-icon-th {
+  display: none !important;
+}
+

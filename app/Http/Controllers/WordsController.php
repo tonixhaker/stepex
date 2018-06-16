@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use App\UserWords;
 use App\Word;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\Paginator;
@@ -79,4 +80,28 @@ class WordsController extends Controller
             return response("User not found",404);
         }
     }
+
+    public function forgetWord(Request $request){
+        $user = User::find($request->user_id);
+        if(!$user || !isset($request->word_id)){
+            return response("User not found",404);
+        }
+        $user->words()->where('word_id',$request->word_id)->first()->delete();
+
+    }
+
+    public function learnWord(Request $request){
+        $user = User::where('uid',$request->uid)->first();
+        if(!$user || !isset($request->word_id)){
+            return response("User not found",404);
+        }
+
+        $user_word = new UserWords();
+        $user_word->user_id = $user->id;
+        $user_word->word_id = $request->word_id;
+        $user_word->passed = 1;
+        $user_word->save();
+
+    }
+
 }
