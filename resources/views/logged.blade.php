@@ -11,5 +11,14 @@
 <body>
 <div id="root"></div>
 <script src="{{mix('js/app.js')}}" ></script>
+<div id="doge">
+    <div class="centerv doge_height">
+        <h1 class="wow_text">WOW, SUCH LITTLE SCREEN</h1>
+        <h1 class="wow_text"> TRY ON PC </h1>
+        <div class="centerh">
+            <img class="doge_img" src="/img/doge.png" alt="doge">
+        </div>
+    </div>
+</div>
 </body>
 </html>

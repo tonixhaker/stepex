@@ -10,10 +10,10 @@
     </head>
     <body class="overflow-hidden noselect">
 
-    <video class="background-video" autoplay muted loop id="myVideo">
+    <video class="background-video mobilehide" autoplay muted loop id="myVideo">
         <source src="video/backlondon.mp4" type="video/mp4">
     </video>
-    <div class="welcome-container centerh">
+    <div class="welcome-container centerh mobilehide">
         <div class="centerv">
             <div class="login-container">
                 <div class="width100">
@@ -31,5 +31,14 @@
         </div>
     </div>
 
+    <div id="doge">
+        <div class="centerv doge_height">
+            <h1 class="wow_text">WOW, SUCH LITTLE SCREEN</h1>
+            <h1 class="wow_text"> TRY ON PC </h1>
+            <div class="centerh">
+                <img class="doge_img" src="/img/doge.png" alt="doge">
+            </div>
+        </div>
+    </div>
     </body>
 </html>

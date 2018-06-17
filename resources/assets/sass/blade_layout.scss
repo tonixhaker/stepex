@@ -1,0 +1,38 @@
+@media only screen and (max-width: 900px) {
+  #root, .mobilehide {
+    display: none;
+  }
+  #doge{
+    display: block!important;
+  }
+}
+
+@media only screen and (max-height: 500px) {
+  #root, .mobilehide {
+    display: none;
+  }
+  #doge{
+    display: block!important;
+  }
+}
+
+#doge{
+  display: none;
+  height: 100vh;
+}
+
+.doge_height{
+  height: 100vh;
+}
+
+.doge_img{
+  margin-top: 40px;
+  width: 60%;
+  height:60%;
+}
+
+.wow_text{
+  font-size: 5vw;
+  font-weight: 600;
+  text-align: center;
+}
