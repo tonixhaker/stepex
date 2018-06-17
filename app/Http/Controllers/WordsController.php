@@ -148,7 +148,7 @@ class WordsController extends Controller
         if($user->count>0){
             $word = $user->words()->inRandomOrder()->first();
             $fake = Word::where('id','!=',$word->id)->inRandomOrder()->take(3)->get();
-            $user->current = $word->word_id;
+            $user->site_current = $word->word_id;
             $user->save();
 
             $answers = [];
@@ -179,7 +179,7 @@ class WordsController extends Controller
         }
         $rating  = $user->rating()->first();
         $rating->totalrating += $res/100;
-        if(isset($user->current)){
+        if(isset($user->site_current)){
             $rating->tests_count += 1;
             $user->current = null;
             $user->save();
@@ -195,11 +195,11 @@ class WordsController extends Controller
 
     public function checkWord(Request $request){
         $user = User::where('uid',$request->uid)->first();
-        if(!$user || !$request->answer || !isset($user->current)){
+        if(!$user || !$request->answer || !isset($user->site_current)){
             return response("User not found",404);
         }
 
-        $word = Word::find($user->current)->ru;
+        $word = Word::find($user->site_current)->ru;
         $rating = $user->rating()->first();
         $user->count-=1;
         $user->save();
