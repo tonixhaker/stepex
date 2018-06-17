@@ -124,7 +124,11 @@ class TelegramController extends Controller
         $user->count = 0;
         $user->failed = 0;
         $user->current = null;
-        $user->words()->where('passed','=', 0)->delete();
+        $words = $user->words()->where('passed','=', 0)->get();
+        foreach ($words as $word) {
+            $word->passed = 1;
+            $word->save();
+        }
         $user->save();
 
     }

@@ -132,7 +132,13 @@ class WordsController extends Controller
         }
 
         if($user->status!='test'){
-            return response()->json(['user_status'=>'main']);
+            if($user->count>=10){
+                $not_enough_words = false;
+            }
+            else{
+                $not_enough_words = true;
+            }
+            return response()->json(['user_status'=>'main', "not_enough_words" => $not_enough_words]);
         }
 
         if($user->words()->count()<10){
