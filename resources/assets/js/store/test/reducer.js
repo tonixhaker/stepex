@@ -21,7 +21,7 @@ const initialState = {
     count:0,
     percent:null,
     user_status:'',
-    not_enough_words:false,
+    not_enough_words:true,
     previous_answer_status:'success',
     status: STATE_STATUSES.READY,
     exception: {

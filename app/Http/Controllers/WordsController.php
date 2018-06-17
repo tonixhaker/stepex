@@ -182,7 +182,8 @@ class WordsController extends Controller
         return response()->json([
            "percent"=>$res,
             "user_status"=>'main',
-            "count"=>0
+            "count"=>0,
+            "not_enough_words" => false
         ]);
     }
 

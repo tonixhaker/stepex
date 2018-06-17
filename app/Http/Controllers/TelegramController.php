@@ -212,9 +212,6 @@ class TelegramController extends Controller
         $this->sentwordagain($user);
     }
     public function user_test($user){
-        if($user->words()->where('passed','=', 0)->count()<10){
-            $this->main_menu($user, "Изучи хотя бы 10 слов =)");
-        }
         $cur_word_id = $user->words()->where('passed','=', 0)->inRandomOrder()->first();
         if(!$cur_word_id){
             $res = (10 - $user->failed)*10;
@@ -289,6 +286,10 @@ class TelegramController extends Controller
         $this->sentwordagain($user);
     }
     public function init_repeat($user){
+        if($user->words()->count()<10){
+            $this->main_menu($user, "Изучи хотя бы 10 слов =)");
+            return 'ok';
+        }
         $words = $user->words()->inRandomOrder()->take(10)->get();
         if(count($words)==0){
             $response = Telegram::sendMessage([
@@ -309,6 +310,7 @@ class TelegramController extends Controller
     public function check_word($text,$user){
         if($text=="МНЕ НАДОЕЛО!"){
             $this->breakTestOrLearn($user);
+            $this->main_menu($user,"Окей, в другой раз)");
             return 'ok';
         }
         if(Word::where('id','=',$user->current)->first()->ru != $text){
