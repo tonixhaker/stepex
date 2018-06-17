@@ -34,7 +34,10 @@
     <div id="doge">
         <div class="centerv doge_height">
             <h1 class="wow_text">WOW, SUCH LITTLE SCREEN</h1>
-            <h1 class="wow_text"> TRY ON PC </h1>
+            <h1 class="wow_text or_use"> TRY ON PC OR USE TELEGRAM BOT </h1>
+            <div class="telegram_button_to_bot">
+                <a href="https://telegram.me/goosavebot">Easy English</a>
+            </div>
             <div class="centerh">
                 <img class="doge_img" src="/img/doge.png" alt="doge">
             </div>

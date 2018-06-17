@@ -29672,12 +29672,46 @@ dd {
 .doge_img {
   margin-top: 40px;
   width: 60%;
-  height: 60%;
+  height: 100%;
 }
 
 .wow_text {
   font-size: 5vw;
   font-weight: 600;
   text-align: center;
+}
+
+.telegram_button_to_bot {
+  z-index: 2;
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.or_use {
+  margin: 0 0 30px 0;
+}
+
+.telegram_button_to_bot a {
+  height: 100%;
+  font-size: 3vw;
+  font-weight: bold;
+  line-height: 100%;
+  color: #FFF;
+  background: #5dc390;
+  border-radius: 22px;
+  overflow: hidden;
+  display: inline-block;
+  padding: 15px 27px 13px;
+  text-transform: uppercase;
+}
+
+.telegram_button_to_bot a:hover {
+  background: #3b7d5c;
+  text-decoration: none;
 }
 
