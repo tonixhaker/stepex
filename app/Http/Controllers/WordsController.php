@@ -166,6 +166,11 @@ class WordsController extends Controller
         }
         $rating  = $user->rating()->first();
         $rating->totalrating += $res/100;
+        if(isset($user->current)){
+            $rating->tests_count += 1;
+            $user->current = null;
+            $user->save();
+        }
         $rating->save();
         return response()->json([
            "percent"=>$res,

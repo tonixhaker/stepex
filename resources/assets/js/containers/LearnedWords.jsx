@@ -2,6 +2,7 @@ import React, {Component, Fragment} from 'react';
 import {connect} from "react-redux";
 import {getItemsLearned, setPagination, setFilters, forgetWord} from '../store/words/actions';
 import { Table,Input,Button,Popconfirm, message } from 'antd';
+import axios from "axios/index";
 
 class LearnedWords extends Component{
     componentDidMount(){
@@ -18,10 +19,20 @@ class LearnedWords extends Component{
         this.props.getItemsLearned({'uid':this.props.uid});
     }
 
-    forgetWord(record){
+    forgetWord2(record){
         this.props.forgetWord(record.word_id,record.user_id);
         this.props.getItemsLearned({'uid':this.props.uid});
         //console.log(record);
+    }
+
+    forgetWord(record){
+        axios.post('/api/forget_word', {'word_id':record.word_id, 'user_id':record.user_id})
+            .then((res) => {
+                this.props.getItemsLearned({'uid':this.props.uid});
+            })
+            .catch((err) => {
+                console.log(err);
+            });
     }
 
     render (){
