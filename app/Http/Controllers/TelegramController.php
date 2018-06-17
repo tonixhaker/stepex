@@ -130,6 +130,7 @@ class TelegramController extends Controller
             $word->save();
         }
         $user->save();
+        $this->main_menu($user,"Окей, в другой раз)");
 
     }
 
@@ -314,7 +315,6 @@ class TelegramController extends Controller
     public function check_word($text,$user){
         if($text=="МНЕ НАДОЕЛО!"){
             $this->breakTestOrLearn($user);
-            $this->main_menu($user,"Окей, в другой раз)");
             return 'ok';
         }
         if(Word::where('id','=',$user->current)->first()->ru != $text){
