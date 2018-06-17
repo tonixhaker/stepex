@@ -50,7 +50,6 @@ class Logged extends React.Component {
         let keys = [];
         let i = nav.findIndex((val) => val.to === pathname);
         keys.push('' + i);
-        console.log(keys);
         return keys;
     };
 
@@ -70,7 +69,7 @@ class Logged extends React.Component {
                             </Menu.Item>
                         );
                     })}
-                    <Menu.Item key="5" className={"logout_button"}>
+                    <Menu.Item key="10" className={"logout_button"}>
                         <a href="/logout">
                             <Icon type="logout" />
                             <span>Logout</span>
