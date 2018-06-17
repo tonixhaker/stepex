@@ -14,7 +14,11 @@ class User extends Component{
     render (){
         return(
             <div className={'container'}>
-                <img className={'user_img'} src={this.props.user.photo_url} alt=""/>
+                {this.props.user.photo_url ?
+                    <img className={'user_img'} src={this.props.user.photo_url} alt="avatar"/>
+                    :
+                    <img className={'user_img2'} src={'/img/noavatar.png'} alt="avatar"/>
+                }
                 <h1 className={'username'}>{this.props.user.fname} {this.props.user.lname}</h1>
                 <i>Using 'Easy English' since <Moment date={this.props.user.created_at} format="YYYY/MM/DD" /></i>
             </div>
