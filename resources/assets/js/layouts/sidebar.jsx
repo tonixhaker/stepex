@@ -56,7 +56,7 @@ class Logged extends React.Component {
     render() {
         return (
             <Sider>
-                <div className={"logo"} />
+                <a className={"logo"} href={'https://telegram.me/goosavebot'} title={'Open in telegram'}/>
                 <Menu theme="dark" defaultSelectedKeys={this.getSelectedItem()} mode="inline">
 
                     {nav.map((v, i) => {

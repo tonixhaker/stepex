@@ -29281,11 +29281,12 @@ button.close {
 }
 
 .logo {
+  display: block;
   height: 100px;
   width: 200px;
   background-repeat: no-repeat;
   background-size: 160px 97px;
-  background-image: url(/images/pic.png?f48f9d5d9646c2d7cb973e41acdaf3b5);
+  background-image: url(/images/pic.png?f1abbd4c6d336e10f687a82ee389adb7);
   margin-left: 20px;
   margin-top: 20px;
   margin-bottom: 20px;
