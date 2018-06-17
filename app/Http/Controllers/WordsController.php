@@ -132,7 +132,7 @@ class WordsController extends Controller
         }
 
         if($user->status!='test'){
-            if($user->words()->count>=10){
+            if($user->words()->count()>=10){
                 $not_enough_words = false;
             }
             else{
@@ -157,7 +157,7 @@ class WordsController extends Controller
             }
             array_push($answers,$word->ru);
             shuffle($answers);
-            if($user->words()->count>=10){
+            if($user->words()->count()>=10){
                 $not_enough_words = false;
             }
             else{
