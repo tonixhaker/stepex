@@ -118,6 +118,17 @@ class TelegramController extends Controller
             'text' => 'Не знаю я таких команд, sorry).',
         ]);
     }
+
+    public function breakTestOrLearn($user){
+        $user->status = 'menu';
+        $user->count = 0;
+        $user->failed = 0;
+        $user->current = null;
+        $user->words()->where('passed','=', 0)->delete();
+        $user->save();
+
+    }
+
     public function userroute($text, $user){
         if($user->status == 'test') {
             $this->user_test($user);
@@ -132,6 +143,9 @@ class TelegramController extends Controller
                     break;
                 case 'Изучить':
                     $this->save_word_to_user($user);
+                    break;
+                case 'МНЕ НАДОЕЛО!':
+                    $this->breakTestOrLearn($user);
                     break;
                 default:
                     $this->sentwordagain($user);
@@ -153,7 +167,8 @@ class TelegramController extends Controller
     public function sentwordagain($user){
         $keyboard = [
             ['Изучить'],
-            ['Знаю']
+            ['Знаю'],
+            ['МНЕ НАДОЕЛО!']
         ];
         $reply_markup = Telegram::replyKeyboardMarkup([
             'keyboard' => $keyboard,
@@ -197,6 +212,9 @@ class TelegramController extends Controller
         $this->sentwordagain($user);
     }
     public function user_test($user){
+        if($user->words()->where('passed','=', 0)->count()<10){
+            $this->main_menu($user, "Изучи хотя бы 10 слов =)");
+        }
         $cur_word_id = $user->words()->where('passed','=', 0)->inRandomOrder()->first();
         if(!$cur_word_id){
             $res = (10 - $user->failed)*10;
@@ -225,12 +243,9 @@ class TelegramController extends Controller
         shuffle($answers);
         $keyboard = [
             [$answers[0], $answers[1]],
-            [$answers[2], $answers[3]]
+            [$answers[2], $answers[3]],
+            ['МНЕ НАДОЕЛО!']
         ];
-//        $keyboard = [
-//            [$cur_word->ru, $cur_word->ru],
-//            [$cur_word->ru, $cur_word->ru]
-//        ];
         $reply_markup = Telegram::replyKeyboardMarkup([
             'keyboard' => $keyboard,
             'resize_keyboard' => true,
@@ -292,6 +307,10 @@ class TelegramController extends Controller
         $this->user_test($user);
     }
     public function check_word($text,$user){
+        if($text=="МНЕ НАДОЕЛО!"){
+            $this->breakTestOrLearn($user);
+            return 'ok';
+        }
         if(Word::where('id','=',$user->current)->first()->ru != $text){
             $user->failed += 1;
             $user->save();

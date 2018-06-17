@@ -55,15 +55,17 @@ class UserRating extends Model
         $rating = $this->totalrating;
         return User::whereHas('rating', function ($query) use($rating) {
             $query->where('totalrating', '>', $rating);
-            $query->where('id','!=',$this->id);
         })->get()->count();
     }
 
     public function getSameRatingAttribute()
     {
         $rating = $this->totalrating;
-        return User::whereHas('rating', function ($query) use($rating) {
-            $query->where('totalrating', '==', $rating);
+        $id = $this->id;
+
+        return User::whereHas('rating', function ($query) use($rating, $id) {
+            $query->where('totalrating', '=', $rating);
+            $query->where('user_id','!=',$id);
         })->get()->count();
     }
 

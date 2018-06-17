@@ -43,8 +43,10 @@ class LoginController extends Controller
             $rating->save();
         }
         else{
-            $user->photo_url = $auth_data['photo_url'];
-            $user->save();
+            if(isset($auth_data['photo_url'])) {
+                $user->photo_url = $auth_data['photo_url'];
+                $user->save();
+            }
         }
         Auth::loginUsingId($user->id);
     }

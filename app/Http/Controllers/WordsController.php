@@ -151,11 +151,18 @@ class WordsController extends Controller
             }
             array_push($answers,$word->ru);
             shuffle($answers);
+            if($user->count>=10){
+                $not_enough_words = false;
+            }
+            else{
+                $not_enough_words = true;
+            }
             return response()->json([
                 "word"=>$word,
                 "fakes"=>$answers,
                 "count"=>$user->count,
-                "user_status"=>'test'
+                "user_status"=>'test',
+                "not_enough_words" => $not_enough_words
             ]);
         }
         $res = (10 -$user->failed) * 10;
