@@ -6,8 +6,18 @@ import { Table, Button, Icon } from 'antd';
 
 class LearnNewWords extends Component{
 
+    constructor(props){
+        super(props);
+        this.state = {
+            button_blocked: false,
+        };
+    }
+
     componentDidMount(){
         this.props.getWord(this.props.uid);
+    }
+    componentWillReceiveProps(nextProps) {
+        this.setState({ button_blocked: false });
     }
 
     render (){
@@ -26,7 +36,7 @@ class LearnNewWords extends Component{
             <div className={'centerv heigth90'}>
                 <h1 className={'word_title'}>{this.props.word.eng} [{this.props.word.transcription}] - <i>{this.props.word.ru}</i></h1>
                 <div className={'centerh marginbuttons'}>
-                    <Button type="dashed" className={'marginright20'} size={'large'} onClick={() => {this.props.learnWord(this.props.word.id,this.props.uid);this.props.getWord(this.props.uid);}}>Add to learned</Button>
+                    <Button disabled={this.state.button_blocked} type="dashed" className={'marginright20'} size={'large'} onClick={() => {this.setState({ button_blocked: true }); this.props.learnWord(this.props.word.id,this.props.uid);this.props.getWord(this.props.uid);}}>Add to learned</Button>
                     <Button type="primary" size={'large'} onClick={()=>this.props.getWord(this.props.uid)}><Icon type="reload" /></Button>
                 </div>
                 {this.props.word.examples && this.props.word.examples.length>0?

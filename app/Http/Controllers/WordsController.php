@@ -136,7 +136,7 @@ class WordsController extends Controller
         }
 
         if($user->words()->count()<10){
-            return response("Learn a fiew words please",404);
+            return response("Learn a fiew words please (at least 10)",404);
         }
 
         if($user->count>0){

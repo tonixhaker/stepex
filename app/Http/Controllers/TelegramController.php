@@ -15,6 +15,10 @@ class TelegramController extends Controller
         error_log($update);
         try {
             $user = User::where('uid','=', $update['message']['from']['id'])->first();
+            if($user && !isset($user->chat_id)){
+                $user->chat_id = isset($update['message']['chat']['id']) ? $update['message']['chat']['id'] : null;
+                $user->save();
+            }
             if(isset($update['message']['entities'][0]['type']) && $update['message']['entities'][0]['type']=='bot_command') {
                 $this->commandsHandler($update);
             }

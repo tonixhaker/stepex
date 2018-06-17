@@ -21,6 +21,7 @@ const initialState = {
     count:0,
     percent:null,
     user_status:'',
+    not_enough_words:false,
     previous_answer_status:'success',
     status: STATE_STATUSES.READY,
     exception: {
@@ -40,7 +41,7 @@ export default (state = initialState, action) => {
                 ...action.payload.data}
         }
         case error(types.NEXT) : {
-            return errorReducer(action.payload.response.data);
+            return {...state, status: STATE_STATUSES.READY, not_enough_words:true}
         }
 
 

@@ -105,9 +105,15 @@ class LearnNewWords extends Component{
                         }
                     </div>
                 :
-                <div className={'buttons_to_center'}>
-                    <Button className={'test_buttons'} onClick={() => this.start_test()} size={'large'}><h2>Start test</h2></Button>
-                </div>
+                <Fragment>
+                    {!this.props.not_enough_words?
+                    <div className={'buttons_to_center'}>
+                        <Button className={'test_buttons'} onClick={() => this.start_test()} size={'large'}><h2>Start test</h2></Button>
+                    </div>
+                        :
+                    <h1 className={'word_title'}>Sorry, learn a few more words please (at least 10)</h1>
+                     }
+                </Fragment>
             }
             </div>
         );
@@ -122,7 +128,8 @@ function mapStateToProps(state){
         previous_answer_status:state.test.previous_answer_status,
         user_status:state.test.user_status,
         percent:state.test.percent,
-        count:state.test.count
+        count:state.test.count,
+        not_enough_words:state.test.not_enough_words
     }
 }
 
