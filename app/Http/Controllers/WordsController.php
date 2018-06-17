@@ -181,7 +181,7 @@ class WordsController extends Controller
         $rating->totalrating += $res/100;
         if(isset($user->site_current)){
             $rating->tests_count += 1;
-            $user->current = null;
+            $user->site_current = null;
             $user->save();
         }
         $rating->save();
