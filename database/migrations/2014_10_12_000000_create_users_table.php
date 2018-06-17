@@ -22,10 +22,13 @@ class CreateUsersTable extends Migration
             $table->string('photo_url')->nullable();
             $table->string('chat_id')->unique()->nullable();
             $table->string('status')->default('menu');
+            $table->string('site_status')->default('menu');
             $table->integer('current')->nullable();
             $table->integer('site_current')->nullable();
             $table->integer('count')->default(0);
+            $table->integer('site_count')->default(0);
             $table->integer('failed')->default(0);
+            $table->integer('site_failed')->default(0);
             $table->timestamps();
         });
     }

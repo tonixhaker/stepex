@@ -118,9 +118,9 @@ class WordsController extends Controller
             return response("User not found",404);
         }
 
-        $user->count = 10;
-        $user->status = 'test';
-        $user->failed=0;
+        $user->site_count = 10;
+        $user->site_status = 'test';
+        $user->site_failed=0;
         $user->save();
         return response()->json(['status'=>'success']);
     }
@@ -131,7 +131,7 @@ class WordsController extends Controller
             return response("User not found",404);
         }
 
-        if($user->status!='test'){
+        if($user->site_status!='test'){
             if($user->words()->count()>=10){
                 $not_enough_words = false;
             }
@@ -145,7 +145,7 @@ class WordsController extends Controller
             return response("Learn a fiew words please (at least 10)",404);
         }
 
-        if($user->count>0){
+        if($user->site_count>0){
             $word = $user->words()->inRandomOrder()->first();
             $fake = Word::where('id','!=',$word->id)->inRandomOrder()->take(3)->get();
             $user->site_current = $word->word_id;
@@ -166,16 +166,16 @@ class WordsController extends Controller
             return response()->json([
                 "word"=>$word,
                 "fakes"=>$answers,
-                "count"=>$user->count,
+                "count"=>$user->site_count,
                 "user_status"=>'test',
                 "not_enough_words" => $not_enough_words
             ]);
         }
-        $res = (10 -$user->failed) * 10;
+        $res = (10 -$user->site_failed) * 10;
         if($res<0)
         {
             $res=0;
-            $user->status = 'main';
+            $user->site_status = 'main';
         }
         $rating  = $user->rating()->first();
         $rating->totalrating += $res/100;
@@ -201,7 +201,7 @@ class WordsController extends Controller
 
         $word = Word::find($user->site_current)->ru;
         $rating = $user->rating()->first();
-        $user->count-=1;
+        $user->site_count-=1;
         $user->save();
 
         if($word == $request->answer){
@@ -210,7 +210,7 @@ class WordsController extends Controller
             return response()->json(["previous_answer_status" => "success"]);
         }
         else{
-            $user->failed += 1;
+            $user->site_failed += 1;
             $user->save();
             $rating->false_answers+=1;
             $rating->save();
