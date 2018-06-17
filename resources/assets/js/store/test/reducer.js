@@ -19,7 +19,7 @@ const initialState = {
     word: '',
     fakes:[],
     count:0,
-    percent:0,
+    percent:null,
     user_status:'',
     previous_answer_status:'success',
     status: STATE_STATUSES.READY,
@@ -37,10 +37,7 @@ export default (state = initialState, action) => {
         }
         case success(types.NEXT) : {
             return {...state, status: STATE_STATUSES.READY,
-                word:action.payload.data.word,
-                fakes:action.payload.data.fakes,
-                user_status:action.payload.data.user_status,
-                count:action.payload.data.count}
+                ...action.payload.data}
         }
         case error(types.NEXT) : {
             return errorReducer(action.payload.response.data);

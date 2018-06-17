@@ -1,7 +1,7 @@
 import React, {Component, Fragment} from 'react';
 import {connect} from "react-redux";
 import {nextWord,checkWord} from '../store/test/actions';
-import { Button } from 'antd';
+import { Button, Table } from 'antd';
 import axios from 'axios';
 
 class LearnNewWords extends Component{
@@ -62,32 +62,53 @@ class LearnNewWords extends Component{
         }];
 
         return(
-            <div>
-            {this.props.user_status == 'test'?
-                    <div>
-                        { this.state.show_word_info?
-                                <div>
-                                    {this.props.word.ru}
-                                </div>
-                            :
-                                <div>
-                                    <h1 className={'word_title'}>{this.props.word.eng} [<i>{this.props.word.transcription}</i>]</h1>
-                                    {this.props.fakes.map((v, i) => {
-                                        return (
-                                            <Button onClick={() => this.answer(v)}>{v}</Button>
-                                        );
-                                    })}
-                                </div>
-                        }
-                    </div>
-                :
-                <Button onClick={() => this.start_test()} size={'large'}>Start test</Button>
-            }
-                {this.props.count<=1?
-                <div>Percent:{this.props.percent}</div>
+            <div className={'centerv heigth90'}>
+                {this.props.count<=0 && this.props.percent!=null?
+                    <h1 className={'word_title'}>Last result: {this.props.percent}% ({this.props.percent/10} from 10)</h1>
                     :
                     ''
                 }
+            {this.props.user_status == 'test'?
+                    <div>
+                        { this.state.show_word_info?
+                            <div className={'centerv heigth90'}>
+                                <h1 className={'word_title'}><i>Wrong answer, just remember this word</i></h1>
+                                <h1 className={'word_title'}>{this.props.word.eng} [{this.props.word.transcription}] - <i>{this.props.word.ru}</i></h1>
+                                <div className={'centerh marginbuttons'}>
+                                <Button type="dashed" className={'marginright20'} size={'large'} onClick={() => { this.props.nextWord(this.props.uid); this.setState({ show_word_info: false }); }}>Got it</Button>
+                                </div>
+                                {this.props.word.examples && this.props.word.examples.length>0?
+                                    <div className={'centerh'}>
+                                    <Table columns={columns} dataSource={this.props.word.examples} />
+                                    </div>
+                                    :
+                                    <div className={'centerh'}>
+                                    <h3>No Examples</h3>
+                                    </div>
+                                }
+                            </div>
+                            :
+                            <div className={'centerv heigth90'}>
+                                <div>
+                                    <h1 className={'word_title'}>{this.props.word.eng} [<i>{this.props.word.transcription}</i>]</h1>
+                                    <div className={'buttons_to_center'}>
+                                        <div className={'test_button_container'}>
+                                            {this.props.fakes.map((v, i) => {
+                                                return (
+                                                    <Button className={'test_button'} onClick={() => this.answer(v)}>{v}</Button>
+                                                );
+                                            })}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                :
+                <div className={'buttons_to_center'}>
+                    <Button className={'test_buttons'} onClick={() => this.start_test()} size={'large'}><h2>Start test</h2></Button>
+                </div>
+            }
             </div>
         );
     }

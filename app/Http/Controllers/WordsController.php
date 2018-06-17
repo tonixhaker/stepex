@@ -164,8 +164,13 @@ class WordsController extends Controller
             $res=0;
             $user->status = 'main';
         }
+        $rating  = $user->rating()->first();
+        $rating->totalrating += $res/100;
+        $rating->save();
         return response()->json([
-           "percent"=>$res
+           "percent"=>$res,
+            "user_status"=>'main',
+            "count"=>0
         ]);
     }
 

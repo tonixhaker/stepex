@@ -21,3 +21,26 @@
 .marginright20{
   margin-right: 20px;
 }
+
+.test_button{
+  width: 300px;
+  height: 50px;
+  word-break: break-all;
+  margin-right: 15px;
+  margin-bottom: 15px;
+}
+
+.test_button_container{
+  width:630px;
+}
+
+.buttons_to_center{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.test_buttons{
+  width: 300px;
+  height: 100px;
+}
