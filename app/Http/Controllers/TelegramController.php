@@ -226,6 +226,7 @@ class TelegramController extends Controller
                 $res = 0;
             $rating  = $user->rating()->first();
             $rating->totalrating += $res/100;
+            $rating->tests_count += 1;
             $rating->save();
             $this->main_menu($user, "Тест пройден с результатом ".$res."%");
             return 'ok';
@@ -265,7 +266,6 @@ class TelegramController extends Controller
     public function save_word_to_user($user){
         if($user->count<=1){
             $rating = $user->rating()->first();
-            $rating->tests_count += 1;
             $rating->save();
             $user->status = 'test';
             $user->save();
