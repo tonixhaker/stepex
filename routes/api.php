@@ -35,3 +35,4 @@ Route::post('/get_next','WordsController@nextWord');
 Route::post('/check_word','WordsController@checkWord');
 
 Route::post('/start_test','WordsController@startTest');
+Route::post('/start_test_force','WordsController@startTestForce');

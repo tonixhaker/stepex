@@ -118,6 +118,23 @@ class WordsController extends Controller
             return response("User not found",404);
         }
 
+        if(isset($user->site_current)){
+            return response()->json(['message'=>'Test collision!'],403);
+        }
+
+        $user->site_count = 10;
+        $user->site_status = 'test';
+        $user->site_failed=0;
+        $user->save();
+        return response()->json(['status'=>'success']);
+    }
+
+    public function startTestForce(Request $request){
+        $user = User::where('uid',$request->uid)->first();
+        if(!$user){
+            return response("User not found",404);
+        }
+
         $user->site_count = 10;
         $user->site_status = 'test';
         $user->site_failed=0;
@@ -195,8 +212,12 @@ class WordsController extends Controller
 
     public function checkWord(Request $request){
         $user = User::where('uid',$request->uid)->first();
-        if(!$user || !$request->answer || !isset($user->site_current)){
+        if(!$user || !$request->answer){
             return response("User not found",404);
+        }
+
+        if(!isset($user->site_current) || $user->site_current!=$request->word_id){
+            return response()->json(['message'=>'Test collision!'],403);
         }
 
         $word = Word::find($user->site_current)->ru;

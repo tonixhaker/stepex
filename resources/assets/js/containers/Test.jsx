@@ -1,7 +1,7 @@
 import React, {Component, Fragment} from 'react';
 import {connect} from "react-redux";
 import {nextWord,checkWord} from '../store/test/actions';
-import { Button, Table } from 'antd';
+import { Button, Table, Modal } from 'antd';
 import axios from 'axios';
 
 class LearnNewWords extends Component{
@@ -22,8 +22,41 @@ class LearnNewWords extends Component{
         console.log(this.props.previous_answer_status);
     }
 
+    collision_promise() {
+        return new Promise((resolve, reject)=>{
+            Modal.confirm({
+                title: 'Test collision!',
+                content: 'You probably started another test in different window, do you want override that test with new one?',
+                onOk() {
+                    resolve();
+                },
+                onCancel() {
+                    reject();
+                },
+            });
+        });
+    }
+
+    collision(){
+        this.collision_promise().then(()=>{
+            this.force_start();
+        })
+    }
+
+    force_start(){
+        axios.post('/api/start_test_force', {'uid':this.props.uid})
+            .then((res) => {
+                if(res.data.status === 'success'){
+                    this.props.nextWord(this.props.uid);
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    }
+
     answer(v){
-        axios.post('/api/check_word', {'uid':this.props.uid, 'answer':v})
+        axios.post('/api/check_word', {'uid':this.props.uid, 'answer':v, 'word_id':this.props.word.word_id})
             .then((res) => {
                 if(res.data.previous_answer_status === 'success'){
                     this.props.nextWord(this.props.uid);
@@ -33,7 +66,10 @@ class LearnNewWords extends Component{
                 }
             })
             .catch((err) => {
-                console.log(err);
+                console.log(err.response.status);
+                if(err.response.status == 403){
+                    this.collision();
+                }
             });
     }
 
@@ -45,7 +81,9 @@ class LearnNewWords extends Component{
                 }
             })
             .catch((err) => {
-                console.log(err);
+                if(err.response.status == 403){
+                    this.collision();
+                }
             });
     }
 

@@ -17,6 +17,14 @@ axios.interceptors.response.use(
         timeout: 5000
       });
     }
+      if (error.response.status === 403) {
+          Alert.error(error.response.data.message, {
+              position: 'bottom',
+              effect: 'jelly',
+              offset: '0',
+              timeout: 5000
+          });
+      }
     return Promise.reject(error);
   });
 
