@@ -21,6 +21,7 @@ class User extends Component{
                 }
                 <h1 className={'username'}>{this.props.user.fname} {this.props.user.lname}</h1>
                 <i>Using 'Easy English' since <Moment date={this.props.user.created_at} format="YYYY/MM/DD" /></i>
+                <script async src="https://telegram.org/js/telegram-widget.js?4" data-telegram-login="goosavebot" data-size="large" data-auth-url="/login" data-request-access="write"/>
             </div>
         );
     }
