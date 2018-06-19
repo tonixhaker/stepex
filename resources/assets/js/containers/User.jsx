@@ -10,10 +10,6 @@ class User extends Component{
         this.props.getItem(this.props.user.uid);
     }
 
-    handleTelegramResponse (response) {
-        console.log(response);
-    };
-
     render (){
         return(
             <div className={'container'}>
@@ -24,9 +20,6 @@ class User extends Component{
                 }
                 <h1 className={'username'}>{this.props.user.fname} {this.props.user.lname}</h1>
                     <i>Using 'Easy English' since <Moment date={this.props.user.created_at} format="YYYY/MM/DD" /></i>
-                <div className={'centerh width100'}>
-                    <TelegramLoginButton dataOnauth={this.handleTelegramResponse} botName="goosavebot" />
-                </div>
             </div>
         );
     }
