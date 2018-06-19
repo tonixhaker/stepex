@@ -29358,6 +29358,10 @@ button.close {
   width: 100%;
 }
 
+.width100 {
+  width: 100%;
+}
+
 .background-video {
   position: absolute;
   z-index: -100;
