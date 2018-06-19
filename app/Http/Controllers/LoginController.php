@@ -67,14 +67,8 @@ class LoginController extends Controller
 
     public function logout(){
         setcookie('tg_user', '');
-        if (isset($_SERVER['HTTP_COOKIE'])) {
-            $cookies = explode(';', $_SERVER['HTTP_COOKIE']);
-            foreach($cookies as $cookie) {
-                $parts = explode('=', $cookie);
-                $name = trim($parts[0]);
-                setcookie($name, '', time()-1000);
-                setcookie($name, '', time()-1000, '/');
-            }
+        FOREACH($_COOKIE AS $key => $value) {
+            SETCOOKIE($key,$value,TIME()-10000,"/","oauth.telegram.org");
         }
         return redirect('/');
     }
