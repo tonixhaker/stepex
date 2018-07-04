@@ -13,14 +13,19 @@ class WordsLearned extends Component {
                 'Users with same rating',
                 'Users with lower rating',
             ],
-            datasets: [{
-                data: [this.props.rating.users_smarter,this.props.rating.same_rating, this.props.rating.users_dumber],
-                backgroundColor: [
-                    '#0beb02',
-                    '#908dff',
-                    '#ff0c15',
-                ]
-            }]
+            datasets: [
+                {
+                    backgroundColor: [
+                        '#908dff',
+                        '#ff0c15',
+                        '#0beb02',],
+                    borderColor: 'rgba(255,99,132,1)',
+                    borderWidth: 1,
+                    hoverBackgroundColor: 'rgba(255,99,132,0.4)',
+                    hoverBorderColor: 'rgba(255,99,132,1)',
+                    data: [this.props.rating.users_smarter,this.props.rating.same_rating, this.props.rating.users_dumber]
+                }
+            ]
         };
 
         let headerStyle = {
